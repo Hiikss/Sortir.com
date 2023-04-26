@@ -1,0 +1,23 @@
+.form{
+    margin: auto;
+    display: flex;
+    border-radius: 4px;
+    flex-direction: column;
+    justify-content: center;
+    width: 20%;
+    padding-top: 55px;
+}
+
+label {
+    margin: 12px 12px 12px 0;
+    display: block;
+}
+
+input, textarea {
+    margin-bottom: 20px;
+}
+
+.btn:hover {
+    background-color: var(--color4);
+    border-radius: 4px;
+}
