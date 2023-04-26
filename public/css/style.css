@@ -1,0 +1,59 @@
+:root {
+    --color1: #f0f0f0;
+    --color2: #a1cca5;
+    --color3: #8fb996;
+    --color4: #709775;
+    --color5: #415d43;
+}
+
+body {
+    background-color: var(--color1);
+    font-family: 'Schibsted Grotesk', sans-serif;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: var(--color4);
+}
+
+#header-top {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+h1 a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.9rem;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+main {
+    flex: 1;
+    width: 95%;
+    margin: auto;
+}
+
+@media all and (max-width: 767px) {
+    nav {
+        display: none;
+    }
+}
