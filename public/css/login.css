@@ -1,0 +1,21 @@
+.login {
+    width: 40%;
+    margin: auto;
+    display: flex;
+    border-radius: 4px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+label {
+    margin: 12px 12px 12px 0;
+}
+
+.checkbox{
+    margin: 12px 0;
+}
+
+.btn:hover {
+    background-color: var(--color4);
+    border-radius: 4px;
+}
