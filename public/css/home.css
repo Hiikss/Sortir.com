@@ -1,0 +1,121 @@
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+th {
+    height: 30px;
+    background-color: var(--color4);
+    text-align: left;
+}
+
+td {
+    height: 40px;
+}
+
+th:not(:nth-last-child(-n + 2)), td:not(:nth-last-child(-n + 2)) {
+    border-right: 2px solid;
+    word-wrap: break-word;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid;
+}
+
+tbody {
+    display: block;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    height: 336px;
+}
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody tr:nth-child(even) td {
+    background-color: var(--color2);
+}
+
+@media all and (min-width: 768px) {
+    #status {
+        font-size: 1.1rem;
+        align-self: flex-end;
+    }
+    
+    #status div {
+        margin-top: 15px;
+    }
+    
+    #filters {
+        margin-top: 60px;
+        margin-bottom: 50px;
+    }
+
+    #filters form {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 100px;
+    }
+
+    #filters input[type=checkbox] {
+        accent-color: var(--color4);
+    }
+
+    #filters input[type=checkbox] + label {
+        cursor: pointer;
+    }
+
+    #filters button {
+        width: 200px;
+        height: 90px;
+        background-color: var(--color4);
+        color: white;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    #filters button:hover {
+        background-color: var(--color3);
+    }
+    
+    #create-trip-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 60px;
+        background-color: var(--color4);
+        border-radius: 50px;
+        font-weight: 600;
+        margin-top: 20px;
+        color: white;
+        text-decoration: none;
+    }
+    
+    #create-trip:hover {
+        background-color: var(--color3);
+    }
+
+    .mobile-show {
+        display: none;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .mobile-hide {
+        display: none;
+    }
+
+    .mobile.show {
+        display: block;
+    }
+}
