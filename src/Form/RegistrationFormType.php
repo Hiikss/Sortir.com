@@ -19,7 +19,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, ['label' => 'Prénom : '])
-            ->add('name', TextType::class, ['label' => 'Nom : '] )
+            ->add('lastname', TextType::class, ['label' => 'Nom : '] )
             ->add('pseudo', TextType::class, ['label' => 'Pseudo : '])
             ->add('telephone', TextType::class, ['label' => 'Téléphone : '] )
             ->add('email', TextType::class, ['label' => 'E-mail : '])
