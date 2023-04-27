@@ -170,7 +170,7 @@ class AppFixtures extends Fixture
         $trip3->setPlace($place3);
         $trip3->setCampus($campus1);
         $trip3->setName('Cinéma');
-        $trip3->setStartDateTime(new DateTime('2023-04-16 14:30:00'));
+        $trip3->setStartDateTime(new DateTime('2023-04-29 14:30:00'));
         $trip3->setDuration(180);
         $trip3->setLimitEntryDate(new DateTime('2023-04-27'));
         $trip3->setMaxRegistrationsNb(10);
