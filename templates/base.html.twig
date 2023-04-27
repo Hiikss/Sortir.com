@@ -18,8 +18,17 @@
         <header>
             <div id="header-top">
                 <h1><a href="{{ path('app_main') }}">Sortir.com</a></h1>
+                {% if(app.user) %}
                     <nav>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <a href="#" title="Gestion des villes">Villes</a>
+                            <a href="#" title="Gestion des campus">Campus</a>
+                        {% endif %}
+                        <a href="{{ path('app_main') }}" title="Retour à l'accueil">Accueil</a>
+                        <a href="#" title="Voir mon profil">Mon profil</a>
+                        <a href="{{ path('app_logout') }}" title="Déconnexion">Se déconnecter</a>
                     </nav>
+                {% endif %}
             </div>
         </header>
 

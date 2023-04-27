@@ -39,6 +39,68 @@ class TripRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByFilters($user, $campus, $searchzone, $startDate, $endDate, $organizerTrips, $registeredTrips, $notRegisteredTrips, $pastTrips) {
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.campus = :campus')
+            ->setParameter('campus', $campus);
+
+        $qb->leftJoin('t.campus', 'campus')
+            ->addSelect('campus');
+
+        $qb->leftJoin('t.state', 'state')
+            ->addSelect('state');
+
+        $qb->leftJoin('t.organizer', 'organizer')
+            ->addSelect('organizer');
+
+        $qb->leftJoin('t.registeredUsers', 'registered')
+            ->addSelect('registered');
+
+        $qb->leftJoin('t.place', 'place')
+            ->addSelect('place');
+
+        $qb->leftJoin('place.city', 'city')
+            ->addSelect('city');
+            
+        if($searchzone) {
+            $qb->andWhere('t.name like :searchzone')
+                ->setParameter('searchzone', '%'.$searchzone.'%');
+        }
+
+        if($startDate) {
+            $qb->andWhere('t.startDateTime >= :startDate')
+                ->setParameter('startDate', $startDate);
+        }
+
+        if($endDate) {
+            $qb->andWhere('t.startDateTime < date_add(:endDate, 1, \'day\')')
+            ->setParameter('endDate', $endDate);
+        }
+
+        if(!$organizerTrips) {
+            $qb->andWhere('organizer != :organizer')
+                ->setParameter('organizer', $user);
+        }
+
+        if(!$registeredTrips) {
+            $qb->andWhere(':registered not member of t.registeredUsers')
+                ->setParameter('registered', $user);
+        }
+
+        if(!$notRegisteredTrips) {
+            $qb->andWhere(':notRegistered member of t.registeredUsers')
+                ->setParameter('notRegistered', $user);
+        }
+
+        if(!$pastTrips) {
+            $qb->andWhere('state != 5');
+        }
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Trip[] Returns an array of Trip objects
 //     */
