@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ asset('css/show.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="profil">
+        <div class="child">
+            <h1>{{ user.pseudo }}</h1>
+            <div class="row">
+                <div class="key">Nom:</div>
+                <div class="value"> {{ user.lastname}}</div>
+            </div>
+            <div class="row">
+                <div class="key">Prenom:</div>
+                <div class="value"> {{ user.firstname}}</div>
+            </div>
+            <div class="row">
+                <div class="key">Email:</div>
+                <div class="value"> {{ user.email}}</div>
+            </div>
+            <div class="row">
+                <div class="key">Téléphone:</div>
+                <div class="value"> {{ user.telephone}}</div>
+            </div>
+            <div class="btn">
+                <a href="{{ path('app_main') }}">Retour</a>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
