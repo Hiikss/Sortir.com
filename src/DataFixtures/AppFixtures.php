@@ -154,7 +154,7 @@ class AppFixtures extends Fixture
         $trip2->setOrganizer($user2);
         $trip2->setPlace($place2);
         $trip2->setCampus($campus1);
-        $trip2->setName('Visite au musée');
+        $trip2->setName('Musée');
         $trip2->setStartDateTime(new DateTime('2023-04-28 15:00:00'));
         $trip2->setDuration(120);
         $trip2->setLimitEntryDate(new DateTime('2023-04-27'));
@@ -169,7 +169,7 @@ class AppFixtures extends Fixture
         $trip3->setOrganizer($user2);
         $trip3->setPlace($place3);
         $trip3->setCampus($campus1);
-        $trip3->setName('Jardinage');
+        $trip3->setName('Cinéma');
         $trip3->setStartDateTime(new DateTime('2023-04-16 14:30:00'));
         $trip3->setDuration(180);
         $trip3->setLimitEntryDate(new DateTime('2023-04-27'));
