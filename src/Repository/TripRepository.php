@@ -89,7 +89,11 @@ class TripRepository extends ServiceEntityRepository
 
         if(!$filters['notRegisteredTrips']) {
             $qb->andWhere(':notRegistered member of t.registeredUsers')
-                ->setParameter('notRegistered', $user);
+                    ->setParameter('notRegistered', $user);
+            if($filters['organizerTrips']) {
+                $qb->orWhere(':organizer = organizer')
+                    ->setParameter('organizer', $user);
+            }
         }
 
         if(!$filters['pastTrips']) {
