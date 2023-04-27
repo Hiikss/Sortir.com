@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TripController extends AbstractController
 {
-    #[Route('/trip', name: 'app_create')]
+    #[Route('/trip/create', name: 'app_create')]
      public function create(Request $request, EntityManagerInterface $entityManager): Response
      {
      $trip = new Trip();
@@ -20,6 +20,12 @@ class TripController extends AbstractController
 
      $form->handleRequest($request);
      if ($form->isSubmitted() && $form->isValid()) {
+
+         //$request->request->getClicked();
+
+         //$trip = $form->getData();
+         //$trip = $TripRepository->trip($form);
+
          $entityManager->persist($trip);
          $entityManager->flush();
 
