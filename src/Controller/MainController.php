@@ -17,7 +17,7 @@ class MainController extends AbstractController
         $homeForm = $this->createForm(HomeType::class);
 
         $homeForm->handleRequest($request);
-
+        
         if($homeForm->isSubmitted() && $homeForm->isValid()) {
             $campus = $homeForm->get('campus')->getData();
             $searchzone = $homeForm->get('searchzone')->getData();
@@ -30,10 +30,11 @@ class MainController extends AbstractController
             $trips = $tripRepository->findByFilters($this->getUser(), $campus, $searchzone, $startDate, $endDate, $organizerTrips, $registeredTrips, $notRegisteredTrips, $pastTrips);
         }
         else {
+            $homeForm->get('campus')->setData($this->getUser()->getCampus());
             $homeForm->get('organizerTrips')->setData(true);
             $homeForm->get('registeredTrips')->setData(true);
             $homeForm->get('notRegisteredTrips')->setData(true);
-            $trips = $tripRepository->findAll();
+            $trips = $tripRepository->findByFilters($this->getUser(), $this->getUser()->getCampus(), null, null, null, true, true, true, false);
         }
             
         return $this->render('main/index.html.twig', [
