@@ -21,10 +21,11 @@ class MainController extends AbstractController
         $homeForm = $this->createFormBuilder()
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
-                'choice_label' => 'name',
+                'choice_label' => 'name'
             ])
             ->add('searchzone', TextType::class, [
                 'required' => false,
+                'label' => 'Le nom de la sortie contient',
                 'attr' => [
                     'placeholder' => 'rechercher'
                 ]

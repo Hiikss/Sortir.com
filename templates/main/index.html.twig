@@ -6,100 +6,118 @@
 
 {% block body %}
 <section id="status" class="mobile-hide">
-    <div>Date du jour : {{ "now"|date("d/m/Y") }}</div>
-    <div>Participant : {{ app.user.firstname }} {{ app.user.lastname|first }}.</div>
+	<div>Date du jour : {{ "now"|date("d/m/Y") }}</div>
+	<div>Participant : {{ app.user.firstname }} {{ app.user.lastname|first }}.</div>
 </section>
 
 <section id="filters" class="mobile-hide">
-    {{ form_start(homeForm) }}
-    <div>
-        <h3>Filtrer les sorties</h3>
-        <div class="row">
-            Campus {{ form_widget(homeForm.campus) }}
-        </div>
-        <div class="row">
-            Le nom de la sortie contient {{ form_widget(homeForm.searchzone) }}
-        </div>
-        <div class="row">
-            Entre {{ form_widget(homeForm.startDate) }} et {{ form_widget(homeForm.endDate) }}
-        </div>
-    </div>
-    <div>
-        <div>
-            {{ form_widget(homeForm.organizerTrips) }}
-            {{ form_label(homeForm.organizerTrips) }}
-        </div>
-        <div>
-            {{ form_widget(homeForm.registeredTrips) }}
-            {{ form_label(homeForm.registeredTrips) }}
-        </div>
-        <div>
-            {{ form_widget(homeForm.notRegisteredTrips) }}
-            {{ form_label(homeForm.notRegisteredTrips) }}
-        </div>
-        <div>
-            {{ form_widget(homeForm.pastTrips) }}
-            {{ form_label(homeForm.pastTrips) }}
-        </div>
-    </div>
-    <div>
-        <button>Rechercher</button>
-    </div>
-    {{ form_end(homeForm) }}
+	{{ form_start(homeForm) }}
+	<div>
+		<h3>Filtrer les sorties</h3>
+		<div class="row">
+			{{ form_label(homeForm.campus) }}
+			{{ form_widget(homeForm.campus) }}
+		</div>
+		<div class="row">
+			{{ form_label(homeForm.searchzone) }}
+			{{ form_widget(homeForm.searchzone) }}
+		</div>
+		<div class="row">
+			Entre
+			{{ form_widget(homeForm.startDate) }}
+			et
+			{{ form_widget(homeForm.endDate) }}
+		</div>
+	</div>
+	<div>
+		<div>
+			{{ form_widget(homeForm.organizerTrips) }}
+			{{ form_label(homeForm.organizerTrips) }}
+		</div>
+		<div>
+			{{ form_widget(homeForm.registeredTrips) }}
+			{{ form_label(homeForm.registeredTrips) }}
+		</div>
+		<div>
+			{{ form_widget(homeForm.notRegisteredTrips) }}
+			{{ form_label(homeForm.notRegisteredTrips) }}
+		</div>
+		<div>
+			{{ form_widget(homeForm.pastTrips) }}
+			{{ form_label(homeForm.pastTrips) }}
+		</div>
+	</div>
+	<div>
+		<button>Rechercher</button>
+	</div>
+	{{ form_end(homeForm) }}
 </section>
 
 <section id="trips-list">
-    <h2 class="mobile-show">Mes sorties :</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Nom de la sortie</th>
-                <th>Date de la sortie</th>
-                <th class="mobile-hide">Clôture</th>
-                <th class="mobile-hide">Inscrits/Places</th>
-                <th class="mobile-hide">État</th>
-                <th class="mobile-hide">Inscrit</th>
-                <th class="mobile-hide">Organisateur</th>
-                <th class="mobile-hide">Actions</th>
-                <th class="mobile-show">Lieu</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for trip in trips %}
-                <tr>
-                    <td>{{ trip.name }}</td>
-                    <td>{{ trip.startDateTime|date("d/m/y H:i") }}</td>
-                    <td class="mobile-hide">{{ trip.limitEntryDate|date("d/m/Y") }}</td>
-                    <td class="mobile-hide">{{ trip.registeredUsers|length }}/{{ trip.maxRegistrationsNb }}</td>
-                    <td class="mobile-hide">{{ trip.state.label }}</td>
-                    <td class="mobile-hide">
-                        {% if app.user in trip.registeredUsers %}
-                            X
-                        {% endif %}
-                    </td>
-                    <td class="mobile-hide">{{ trip.organizer.firstname }} {{ trip.organizer.lastname|first }}.</td>
-                    <td class="mobile-hide"></td>
-                    <td class="mobile-show">{{ trip.place.city.name|upper }}</td>
-                </tr>
-            {% endfor %}
-                {% for j in (0..7 - trips|length) %}
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td class="mobile-hide"></td>
-                        <td class="mobile-hide"></td>
-                        <td class="mobile-hide"></td>
-                        <td class="mobile-hide"></td>
-                        <td class="mobile-hide"></td>
-                        <td class="mobile-hide"></td>
-                        <td class="mobile-show"></td>
-                    </tr>
-                {% endfor %}
-        </tbody>
-    </table>
+	<h2 class="mobile-show">Mes sorties :</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Nom de la sortie</th>
+				<th>Date de la sortie</th>
+				<th class="mobile-hide">Clôture</th>
+				<th class="mobile-hide">Inscrits/Places</th>
+				<th class="mobile-hide">État</th>
+				<th class="mobile-hide">Inscrit</th>
+				<th class="mobile-hide">Organisateur</th>
+				<th class="mobile-hide">Actions</th>
+				<th class="mobile-show">Lieu</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for trip in trips %}
+			<tr>
+				<td>{{ trip.name }}</td>
+				<td>{{ trip.startDateTime|date("d/m/y H:i") }}</td>
+				<td class="mobile-hide">{{ trip.limitEntryDate|date("d/m/Y") }}</td>
+				<td class="mobile-hide">{{ trip.registeredUsers|length }}/{{ trip.maxRegistrationsNb }}</td>
+				<td class="mobile-hide">{{ trip.state.label }}</td>
+				<td class="mobile-hide center-text">
+					{% if app.user in trip.registeredUsers %}
+					X
+					{% endif %}
+				</td>
+				<td class="mobile-hide">{{ trip.organizer.firstname }}
+					{{ trip.organizer.lastname|first }}.</td>
+				<td class="mobile-hide">
+					{#Todo actions
+					{% if app.user == trip.organizer %}
+					{% if trip.state.label == 'Créée' %}
+					<a href="">Modifier</a>
+					<span> - </span>
+					<a href="">Publier</a>
+					{% endif %}
+					{% endif %}
+					{% if trip.state.label == 'Passée' %}
+					<a href="">Afficher</a>
+					{% endif %}#}
+				</td>
+				<td class="mobile-show">{{ trip.place.city.name|upper }}</td>
+			</tr>
+			{% endfor %}
+			{% for j in (0..7 - trips|length) %}
+			<tr>
+				<td></td>
+				<td></td>
+				<td class="mobile-hide"></td>
+				<td class="mobile-hide"></td>
+				<td class="mobile-hide"></td>
+				<td class="mobile-hide"></td>
+				<td class="mobile-hide"></td>
+				<td class="mobile-hide"></td>
+				<td class="mobile-show"></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </section>
 
 <section>
-    <a id="create-trip-button" class="mobile-hide" href="#">Créer une sortie</a>
+	<a id="create-trip-button" class="mobile-hide" href="#">Créer une sortie</a>
 </section>
 {% endblock %}

@@ -18,6 +18,10 @@ th:not(:nth-last-child(-n + 2)), td:not(:nth-last-child(-n + 2)) {
     word-wrap: break-word;
 }
 
+td, th {
+    text-align: center;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -53,7 +57,7 @@ tbody tr:nth-child(even) td {
     
     #filters {
         margin-top: 60px;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
     }
 
     #filters form {
@@ -63,11 +67,15 @@ tbody tr:nth-child(even) td {
         gap: 100px;
     }
 
+    #filters .row {
+        margin-bottom: 10px;
+    }
+
     #filters input[type=checkbox] {
         accent-color: var(--color4);
     }
 
-    #filters input[type=checkbox] + label {
+    #filters input[type=checkbox] + label, input[type=checkbox] {
         cursor: pointer;
     }
 
