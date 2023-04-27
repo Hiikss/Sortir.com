@@ -100,6 +100,8 @@ class TripRepository extends ServiceEntityRepository
             $qb->andWhere('state != 5');
         }
 
+        $qb->andWhere('date_diff(current_date(), t.startDateTime) <= 30');
+
         $query = $qb->getQuery();
 
         return $query->getResult();
