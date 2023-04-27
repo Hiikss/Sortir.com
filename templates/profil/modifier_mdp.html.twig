@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier le Profil{% endblock %}
+{% block title %}Modifier le Mot de Passe{% endblock %}
 
 {% block extrastyles %}
     <link rel="stylesheet" href="{{ asset('css/modifier_profil.css') }}">
@@ -8,14 +8,11 @@
 
 {% block body %}
     <div class="form">
-        <h1>Mon Profil</h1>
+        <h1>{{ user.pseudo }}</h1>
         {{ form_start(profilForm) }}
         {{ form_widget(profilForm) }}
-        <!--button class="a-btn" type="submit">enregistrer</button-->
+        <!--button type="submit" name="submit">Enregistrer</button-->
+        <!--button type="submit" name="cancel">Annuler</button-->
         {{ form_end(profilForm) }}
-        <div class="btn">
-            <a href="{{ path('app_profil_modify_password') }}", class="a-btn">Modifier mot de passe</a>
-        </div>
     </div>
-
 {% endblock %}

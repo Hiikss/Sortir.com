@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class PasswordFormType extends AbstractType
 {
@@ -17,19 +19,40 @@ class PasswordFormType extends AbstractType
         $builder
             ->add('password', type: RepeatedType::class, options: [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'Mot de passe'/*, 'hash_property_path' => 'password'*/],
-                'second_options' => ['label' => 'Confirmer mot de passe']
+                'required' => false,
+                'first_options'  => [
+                    'label' => 'Mot de passe',
+                    'constraints' => [
+                        new NotBlank(),
+                        new NotNull(),
+                    ],
+                    ],
+                'second_options' => [
+                    'label' => 'Confirmer mot de passe',
+                    'constraints' => [
+                        new NotBlank(),
+                        new NotNull(),
+                    ],
+                    ]
             ])
-            ->add('save', type: SubmitType::class, options: [
-                'label' => 'Enregistrer'
+            ->add('oldPassword', type: PasswordType::class, options: [
+                'mapped' => true,
+                'required' => false,
+                'label' => 'Ancien mot de passe',
+                'constraints' => [
+                    new NotBlank(),
+                    new NotNull(),
+                ],
             ])
+            ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])
+            ->add('cancel', SubmitType::class, ['label' => 'Annuler'])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+   /* public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
-    }
+    }*/
 }

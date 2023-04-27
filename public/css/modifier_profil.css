@@ -5,19 +5,23 @@
     flex-direction: column;
     justify-content: center;
     width: 20%;
-    padding-top: 55px;
+    padding-top: 35px;
 }
 
 label {
-    margin: 12px 12px 12px 0;
+    margin: 11px 11px 8px 0;
     display: block;
 }
 
 input, textarea {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .btn:hover {
-    background-color: var(--color4);
     border-radius: 4px;
+}
+
+.a-btn {
+    margin-top: 20px;
+    display: block;
 }

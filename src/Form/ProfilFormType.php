@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -29,10 +31,17 @@ class ProfilFormType extends AbstractType
             ])
             ->add('telephone', type: TextType::class, options: [
                 'required' => true,
-            ])
-            ->add('save', type: SubmitType::class, options: [
-                'label' => 'Enregistrer'
-            ])
+            ])->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'name',
+                ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => [
+                    'class' => 'a-btn'
+                ]
+                ])
+            ->add('cancel', SubmitType::class, ['label' => 'Annuler'])
         ;
     }
 
