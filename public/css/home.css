@@ -1,6 +1,8 @@
 main {
     display: flex;
     flex-direction: column;
+    width: 95%;
+    margin: auto;
 }
 
 th {
