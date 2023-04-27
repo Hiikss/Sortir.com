@@ -48,8 +48,6 @@ nav a {
 
 main {
     flex: 1;
-    width: 95%;
-    margin: auto;
 }
 
 @media all and (max-width: 767px) {

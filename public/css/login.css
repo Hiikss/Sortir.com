@@ -15,6 +15,19 @@ label {
     margin: 12px 0;
 }
 
+.btn {
+    width: 100%;
+    max-width: 310px;
+    height: 40px;
+    background-color: var(--color4);
+    color: white;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
 .btn:hover {
     background-color: var(--color4);
     border-radius: 4px;

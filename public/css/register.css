@@ -1,4 +1,4 @@
-.register {
+#registration_form {
     width: 40%;
     margin: auto;
     display: flex;
@@ -6,6 +6,20 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+
+#registration_form > div {
+    margin-bottom: 12px;
+}
+
+#registration_form > div > label {
+    display : block;
+}
+
+.register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 button {
