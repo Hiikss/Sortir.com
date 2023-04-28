@@ -48,7 +48,7 @@ class TripController extends AbstractController
         
         $states = $stateRepository->findAll();
 
-        if($trip && $this->getUser()==$trip->getOrganizer() && $trip->getState()==$states[1]) {
+        if($trip && $this->getUser()==$trip->getOrganizer() && ($trip->getState()==$states[1] || $trip->getState()==$states[2])) {
             
             $tripForm = $this->createFormBuilder()
             ->add('reason', TextareaType::class, [
@@ -72,6 +72,26 @@ class TripController extends AbstractController
                 'trip' => $trip,
                 'tripForm' => $tripForm->createView()
             ]);
+        }
+
+        return $this->redirectToRoute('app_main');
+    }
+
+    #[Route('/register/{id}', name: 'register')]
+    public function register(int $id, TripRepository $tripRepository, StateRepository $stateRepository, EntityManagerInterface $entityManager): Response {
+        
+        $trip = $tripRepository->find($id);
+
+        $states = $stateRepository->findAll();
+
+        $user = $this->getUser();
+
+        if($trip && $trip->getState()==$states[1] && $trip->getOrganizer()!=$user && !$trip->getRegisteredUsers()->contains($user) 
+            && $trip->getRegisteredUsers()->count()<$trip->getMaxRegistrationsNb() && $trip->getLimitEntryDate()>date('Y-m-d')) {
+                $trip->addRegisteredUser($user);
+            
+            $entityManager->persist($trip);
+                $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_main');
