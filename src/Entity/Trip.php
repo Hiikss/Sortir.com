@@ -6,6 +6,7 @@ use App\Repository\TripRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TripRepository::class)]
@@ -20,12 +21,15 @@ class Trip
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThanOrEqual('today')]
     private ?\DateTimeInterface $startDateTime = null;
 
     #[ORM\Column]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\GreaterThanOrEqual('today')]
+    #[Assert\LessThanOrEqual(propertyPath: 'startDateTime')]
     private ?\DateTimeInterface $limitEntryDate = null;
 
     #[ORM\Column]
@@ -52,6 +56,9 @@ class Trip
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'registeredTrips')]
     private Collection $registeredUsers;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cancelReason = null;
 
     public function __construct()
     {
@@ -206,6 +213,18 @@ class Trip
         if ($this->registeredUsers->removeElement($registeredUser)) {
             $registeredUser->removeRegisteredTrip($this);
         }
+
+        return $this;
+    }
+
+    public function getCancelReason(): ?string
+    {
+        return $this->cancelReason;
+    }
+
+    public function setCancelReason(?string $cancelReason): self
+    {
+        $this->cancelReason = $cancelReason;
 
         return $this;
     }

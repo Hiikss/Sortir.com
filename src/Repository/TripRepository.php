@@ -39,10 +39,10 @@ class TripRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByFilters($user, $campus, $searchzone, $startDate, $endDate, $organizerTrips, $registeredTrips, $notRegisteredTrips, $pastTrips) {
+    public function findByFilters($user, $filters) {
         $qb = $this->createQueryBuilder('t')
             ->where('t.campus = :campus')
-            ->setParameter('campus', $campus);
+            ->setParameter('campus', $filters['campus']);
 
         $qb->leftJoin('t.campus', 'campus')
             ->addSelect('campus');
@@ -62,39 +62,45 @@ class TripRepository extends ServiceEntityRepository
         $qb->leftJoin('place.city', 'city')
             ->addSelect('city');
             
-        if($searchzone) {
+        if($filters['searchzone']) {
             $qb->andWhere('t.name like :searchzone')
-                ->setParameter('searchzone', '%'.$searchzone.'%');
+                ->setParameter('searchzone', '%'.$filters['searchzone'].'%');
         }
 
-        if($startDate) {
+        if($filters['startDate']) {
             $qb->andWhere('t.startDateTime >= :startDate')
-                ->setParameter('startDate', $startDate);
+                ->setParameter('startDate', $filters['startDate']);
         }
 
-        if($endDate) {
+        if($filters['endDate']) {
             $qb->andWhere('t.startDateTime < date_add(:endDate, 1, \'day\')')
-            ->setParameter('endDate', $endDate);
+            ->setParameter('endDate', $filters['endDate']);
         }
 
-        if(!$organizerTrips) {
+        if(!$filters['organizerTrips']) {
             $qb->andWhere('organizer != :organizer')
                 ->setParameter('organizer', $user);
         }
 
-        if(!$registeredTrips) {
+        if(!$filters['registeredTrips']) {
             $qb->andWhere(':registered not member of t.registeredUsers')
                 ->setParameter('registered', $user);
         }
 
-        if(!$notRegisteredTrips) {
+        if(!$filters['notRegisteredTrips']) {
             $qb->andWhere(':notRegistered member of t.registeredUsers')
-                ->setParameter('notRegistered', $user);
+                    ->setParameter('notRegistered', $user);
+            if($filters['organizerTrips']) {
+                $qb->orWhere(':organizer = organizer')
+                    ->setParameter('organizer', $user);
+            }
         }
 
-        if(!$pastTrips) {
+        if(!$filters['pastTrips']) {
             $qb->andWhere('state != 5');
         }
+
+        $qb->andWhere('date_diff(current_date(), t.startDateTime) <= 30');
 
         $query = $qb->getQuery();
 
