@@ -120,6 +120,12 @@ tbody tr:nth-child(even) td {
     }
 }
 
+@media all and (max-width: 1200px) {
+    #filters form {
+        gap: 30px;
+    }
+}
+
 @media all and (max-width: 767px) {
     .mobile-hide {
         display: none;
