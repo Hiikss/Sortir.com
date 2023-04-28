@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails sortie{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/tripDetails.css') }}"> {% endblock %}
+
+{% block body %}
+<h2>Afficher une sortie</h2>
+<section>
+    <div class="column">
+        <div class="row">
+            <div>Nom de la sortie :</div>
+            <div>{{ trip.name }}</div>
+        </div>
+        <div class="row">
+            <div>Date et heure de la sortie :</div>
+            <div>{{ trip.startDateTime|date("d/m/y H:i") }}</div>
+        </div>
+        <div class="row">
+            <div>Date limite d'inscription :</div>
+            <div>{{ trip.limitEntryDate|date("d/m/Y") }}</div>
+        </div>
+        <div class="row">
+            <div>Nombre de places :</div>
+            <div>{{ trip.maxRegistrationsNb }}</div>
+        </div>
+        <div class="row">
+            <div>Durée :</div>
+            <div>{{ trip.duration }} minutes</div>
+        </div>
+        <div class="row">
+            <div>Description et infos :</div>
+            <div>{{ trip.tripInfos }}</div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="row">
+            <div>Campus :</div>
+            <div>{{ trip.campus.name }}</div>
+        </div>
+        <div class="row">
+            <div>Lieu :</div>
+            <div>{{ trip.place.name }}</div>
+        </div>
+        <div class="row">
+            <div>Rue :</div>
+            <div>{{ trip.place.street }}</div>
+        </div>
+        <div class="row">
+            <div>Code postal :</div>
+            <div>{{ trip.place.city.postalCode }}</div>
+        </div>
+        <div class="row">
+            <div>Latitude :</div>
+            <div>{{ trip.place.latitude }}</div>
+        </div>
+        <div class="row">
+            <div>Longitude :</div>
+            <div>{{ trip.place.longitude }}</div>
+        </div>
+    </div>
+</section>
+<section>
+    <div>Liste des participants inscrits :</div>
+    <table>
+		<thead>
+			<tr>
+				<th>Pseudo</th>
+				<th>Nom</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in trip.registeredUsers %}
+			<tr>
+				<td>{{ user.pseudo }}</td>
+				<td>{{ user.firstname }} {{ user.lastname|upper }}</td>
+			</tr>
+			{% endfor %}
+			{% for j in (0..4 - trip.registeredUsers|length) %}
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</section>
+{% endblock %}
