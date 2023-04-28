@@ -97,7 +97,7 @@
 						{% elseif trip.state.id == 2 and app.user != trip.organizer and app.user not in trip.registeredUsers %}
 							<a href="">S'inscrire</a>
 						{% elseif trip.state.id == 2 and app.user == trip.organizer %}
-							<a href="">Annuler</a>
+							<a href="{{ path('trip_cancel', {'id': trip.id}) }}">Annuler</a>
 						{% elseif trip.state.id == 1 and app.user == trip.organizer %}
 							<a href="">Publier</a>
 						{% endif %}
