@@ -125,6 +125,20 @@ class TripController extends AbstractController
 
         return $this->redirectToRoute('app_main');
     }
+
+    #[Route('/details/{id}', name: 'details')]
+    public function details(int $id, TripRepository $tripRepository): Response {
+        
+        $trip = $tripRepository->find($id);
+
+        if($trip) {
+            return $this->render('trip/details.html.twig', [
+                'trip' => $trip
+            ]);
+        }
+        
+        return $this->redirectToRoute('app_main');
+    }
 }
 
 
