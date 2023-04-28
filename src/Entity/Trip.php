@@ -57,6 +57,9 @@ class Trip
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'registeredTrips')]
     private Collection $registeredUsers;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cancelReason = null;
+
     public function __construct()
     {
         $this->registeredUsers = new ArrayCollection();
@@ -210,6 +213,18 @@ class Trip
         if ($this->registeredUsers->removeElement($registeredUser)) {
             $registeredUser->removeRegisteredTrip($this);
         }
+
+        return $this;
+    }
+
+    public function getCancelReason(): ?string
+    {
+        return $this->cancelReason;
+    }
+
+    public function setCancelReason(?string $cancelReason): self
+    {
+        $this->cancelReason = $cancelReason;
 
         return $this;
     }
