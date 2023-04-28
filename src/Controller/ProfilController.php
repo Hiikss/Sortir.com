@@ -43,6 +43,10 @@ class ProfilController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
+            $this->addFlash(
+                'notice',
+                'Vos changements on été sauvegardés');
+
             $entityManager->persist($user);
             $entityManager->flush();
 

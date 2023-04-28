@@ -11,10 +11,12 @@
         <h1>Mon Profil</h1>
         {{ form_start(profilForm) }}
         {{ form_widget(profilForm) }}
-        <!--button class="a-btn" type="submit">enregistrer</button-->
+        <button class="a-btn" type="submit">enregistrer</button>
+        <a></a>
         {{ form_end(profilForm) }}
         <div class="btn">
             <a href="{{ path('app_profil_modify_password') }}", class="a-btn">Modifier mot de passe</a>
+            <a class="a-btn" href="{{ path('app_main') }}">Annuler</a>
         </div>
     </div>
 

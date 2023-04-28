@@ -35,12 +35,12 @@ class ProfilFormType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'name',
                 ])
-            ->add('submit', SubmitType::class, [
+          /*  ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => [
                     'class' => 'a-btn'
                 ]
-                ])
+                ]) */
             ->add('cancel', SubmitType::class, ['label' => 'Annuler'])
         ;
     }
