@@ -40,7 +40,7 @@ class MainController extends AbstractController
             ])
             ->add('organizerTrips', CheckboxType::class, [
                 'label' => 'Sorties dont je suis l\'organisateur/trice',
-                'required' => false
+                'required' => false,
             ])
             ->add('registeredTrips', CheckboxType::class, [
                 'label' => 'Sorties auxquelles je suis inscrit/e',
@@ -60,6 +60,12 @@ class MainController extends AbstractController
         if ($homeForm->isSubmitted() && $homeForm->isValid()) {
             $trips = $tripRepository->findByFilters($this->getUser(), $homeForm->getData());
         } else {
+
+            // vous n'avez pas besoin de faire ça pour attribuer une valeur par défaut aux champs
+            // on peut le faire directement en configuration le form.
+            // Regardez la doc symfony sur le CheckBoxType par exemple et cherchez comment attribuer une valeur
+            // par défaut
+
             $homeForm->get('campus')->setData($this->getUser()->getCampus());
             $homeForm->get('organizerTrips')->setData(true);
             $homeForm->get('registeredTrips')->setData(true);
