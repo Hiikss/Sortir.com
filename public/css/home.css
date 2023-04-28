@@ -111,7 +111,7 @@ tbody tr:nth-child(even) td {
         text-decoration: none;
     }
     
-    #create-trip:hover {
+    #create-trip-button:hover {
         background-color: var(--color3);
     }
 
