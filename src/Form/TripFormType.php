@@ -9,6 +9,7 @@ use App\Entity\Trip;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -30,12 +31,16 @@ class TripFormType extends AbstractType
                 'label' => 'Date et heure de la sortie : ',
                 'widget' => 'single_text',
                 ])
+
             ->add('limitEntryDate', DateType::class, [
                 'label' => 'Date limite d\'inscription',
                 'widget' => 'single_text',
                 ])
+
             ->add('maxRegistrationsNb', IntegerType::class, [
-                'label' => 'Nombre de places : '])
+                'label' => 'Nombre de places : '
+            ])
+
             ->add('duration', IntegerType::class, [
                 'label' => 'Durée : ',
                 'attr' => [
@@ -55,32 +60,45 @@ class TripFormType extends AbstractType
 
             /*->add('city', EntityType::class, [
                 'label' => 'Ville : ',
-                'class' => City::class,//va chercher les villes dans l'entité City pour les afficher
-                'choice_label' => 'name',
+                'class' => City::class,
+                'choice_label' => 'city',
             ])*/
 
-            ->add('place', EntityType::class, [
+            /*->add('place', EntityType::class, [
                 'label' => 'Lieu : ',
                 'class' => Place::class,//va chercher les villes dans l'entité Place pour les afficher
                 'choice_label' => 'name',
             ])
 
-            ->add('add', ButtonType::class, [ //bouton d'ajouter d'un nouveau lieu
+            ->add('add', ButtonType::class, [ //bouton ajouter un nouveau lieu
                 'label' => '+',
                 'attr' => [
                     'class' => 'add-button',
                     'submit' => 'button',
                 ],
-            ])
-            /*->add('latitude', EntityType::class, [
-                'label' => 'Latitude : ',
-                'class' => Place::class,
             ])*/
 
-            /*->add('longitude', EntityType::class, [
-                'label' => 'Longitude : ',
+            ->add('place', CollectionType::class, [
+                'entry_type' => Place::class, // LieuType est le formulaire pour un lieu
+                'allow_add' => true, // autoriser l'ajout de nouveaux lieux
+                'by_reference' => false, // obligatoire si vous voulez ajouter de nouveaux objets à la collection
+            ])
+            ->add('ajouter_lieu', SubmitType::class, [
+                'label' => '+',
+                'attr' => ['class' => 'btn btn-primary'],
+            ])
+
+            ->add('place', EntityType::class, [
+                'label' => 'Latitude : ',
                 'class' => Place::class,
-            ])*/
+                'choice_label' => 'latitude',
+            ])
+
+            ->add('place', EntityType::class, [
+                'label' => 'Longitude : ',
+                'class' => Place::class,//
+                'choice_label' => 'longitude',
+            ])
         ;
     }
 

@@ -23,7 +23,7 @@ class TripController extends AbstractController
 
          //$request->request->getClicked();
 
-         //$trip = $form->getData();
+         $trip = $form->getData();
          //$trip = $TripRepository->trip($form);
 
          $entityManager->persist($trip);
