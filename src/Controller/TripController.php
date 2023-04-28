@@ -6,6 +6,7 @@ use APP\Entity\Trip;
 use App\Form\TripFormType;
 use App\Repository\StateRepository;
 use App\Repository\TripRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -85,10 +86,38 @@ class TripController extends AbstractController
         $states = $stateRepository->findAll();
 
         $user = $this->getUser();
-
         if($trip && $trip->getState()==$states[1] && $trip->getOrganizer()!=$user && !$trip->getRegisteredUsers()->contains($user) 
-            && $trip->getRegisteredUsers()->count()<$trip->getMaxRegistrationsNb() && $trip->getLimitEntryDate()>date('Y-m-d')) {
-                $trip->addRegisteredUser($user);
+            && $trip->getRegisteredUsers()->count()<$trip->getMaxRegistrationsNb() && $trip->getLimitEntryDate()>new DateTime('now')) {
+                
+            $trip->addRegisteredUser($user);
+
+            if($trip->getRegisteredUsers()->count()==$trip->getMaxRegistrationsNb()) {
+                $trip->setState($states[2]);
+            }
+            
+            $entityManager->persist($trip);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_main');
+    }
+
+    #[Route('/unregister/{id}', name: 'unregister')]
+    public function unregister(int $id, TripRepository $tripRepository, StateRepository $stateRepository, EntityManagerInterface $entityManager): Response {
+        
+        $trip = $tripRepository->find($id);
+
+        $states = $stateRepository->findAll();
+
+        $user = $this->getUser();
+
+        if($trip && ($trip->getState()==$states[1] || $trip->getState()==$states[2]) && $trip->getOrganizer()!=$user && $trip->getRegisteredUsers()->contains($user) 
+            && $trip->getStartDateTime()>new DateTime('now')) {
+                
+            $trip->removeRegisteredUser($user);
+            if($trip->getLimitEntryDate()>new DateTime('now')) {
+                $trip->setState($states[1]);
+            }
             
             $entityManager->persist($trip);
                 $entityManager->flush();
