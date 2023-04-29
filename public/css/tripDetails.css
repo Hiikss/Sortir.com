@@ -91,10 +91,6 @@ tbody tr:nth-child(even) td {
 }
 
 @media all and (max-width: 767px) {
-    h2 {
-        display: none;
-    }
-
     section:first-of-type {
         margin-top: 20px !important;
         flex-direction: column;
@@ -125,6 +121,9 @@ tbody tr:nth-child(even) td {
 }
 
 @media all and (max-width: 575px) {
+    h2 {
+        display: none;
+    }
     section:first-of-type div .row div:last-child {
         width: 140px;
     }
