@@ -49,7 +49,7 @@ class TripController extends AbstractController
         
         $states = $stateRepository->findAll();
 
-        if($trip && $this->getUser()==$trip->getOrganizer() && ($trip->getState()==$states[1] || $trip->getState()==$states[2])) {
+        if($trip && ($this->getUser()==$trip->getOrganizer() || in_array('ROLE_ADMIN', $this->getUser()->getRoles())) && ($trip->getState()==$states[1] || $trip->getState()==$states[2])) {
             
             $tripForm = $this->createFormBuilder()
             ->add('reason', TextareaType::class, [
