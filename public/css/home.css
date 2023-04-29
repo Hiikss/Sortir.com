@@ -5,6 +5,15 @@ main {
     margin: auto;
 }
 
+table a {
+    color: var(--color5);
+    text-decoration: none;
+}
+
+table a:hover {
+    color: var(--color4);
+}
+
 th {
     height: 30px;
     background-color: var(--color4);
@@ -95,6 +104,12 @@ tbody tr:nth-child(even) td {
 
     #filters button:hover {
         background-color: var(--color3);
+    }
+
+    .trip-name {
+        cursor: default;
+        color: black !important;
+        pointer-events: none;
     }
     
     #create-trip-button {

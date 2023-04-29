@@ -72,7 +72,7 @@
 		<tbody>
 			{% for trip in trips %}
 			<tr>
-				<td>{{ trip.name }}</td>
+				<td><a href="{{ path('trip_details', {'id': trip.id}) }}" class="trip-name">{{ trip.name }}</a></td>
 				<td>{{ trip.startDateTime|date("d/m/y H:i") }}</td>
 				<td class="mobile-hide">{{ trip.limitEntryDate|date("d/m/Y") }}</td>
 				<td class="mobile-hide">{{ trip.registeredUsers|length }}/{{ trip.maxRegistrationsNb }}</td>
