@@ -7,10 +7,14 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ProfilFormType extends AbstractType
 {
@@ -35,13 +39,35 @@ class ProfilFormType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'name',
                 ])
-          /*  ->add('submit', SubmitType::class, [
-                'label' => 'Enregistrer',
-                'attr' => [
-                    'class' => 'a-btn'
+            ->add('password', type: RepeatedType::class, options: [
+                'type' => PasswordType::class,
+                'required' => false,
+                'mapped' => false,
+                'first_options'  => [
+                    'label' => 'Nouveau mot de passe',
+                    'hash_property_path' => 'password',
+                    'constraints' => [
+                        new NotBlank(),
+                        new NotNull(),
+                    ],
+                ],
+                'second_options' => [
+                    'label' => 'Confirmer mot de passe',
+                    'constraints' => [
+                        new NotBlank(),
+                        new NotNull(),
+                    ],
                 ]
-                ]) */
-            ->add('cancel', SubmitType::class, ['label' => 'Annuler'])
+            ])
+            ->add('oldPassword', type: PasswordType::class, options: [
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Ancien mot de passe',
+                'constraints' => [
+                    new NotBlank(),
+                    new NotNull(),
+                ],
+            ])
         ;
     }
 
