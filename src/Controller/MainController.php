@@ -21,13 +21,14 @@ class MainController extends AbstractController
         $homeForm = $this->createFormBuilder()
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'data' => $this->getUser()->getCampus()
             ])
             ->add('searchzone', TextType::class, [
                 'required' => false,
                 'label' => 'Le nom de la sortie contient',
                 'attr' => [
-                    'placeholder' => 'rechercher'
+                    'placeholder' => 'Rechercher'
                 ]
             ])
             ->add('startDate', DateType::class, [
@@ -40,15 +41,18 @@ class MainController extends AbstractController
             ])
             ->add('organizerTrips', CheckboxType::class, [
                 'label' => 'Sorties dont je suis l\'organisateur/trice',
-                'required' => false
+                'required' => false,
+                'data' => true
             ])
             ->add('registeredTrips', CheckboxType::class, [
                 'label' => 'Sorties auxquelles je suis inscrit/e',
-                'required' => false
+                'required' => false,
+                'data' => true
             ])
             ->add('notRegisteredTrips', CheckboxType::class, [
                 'label' => 'Sorties auxquelles je ne suis pas inscrit/e',
-                'required' => false
+                'required' => false,
+                'data' => true
             ])
             ->add('pastTrips', CheckboxType::class, [
                 'label' => 'Sorties passées',
@@ -60,10 +64,6 @@ class MainController extends AbstractController
         if ($homeForm->isSubmitted() && $homeForm->isValid()) {
             $trips = $tripRepository->findByFilters($this->getUser(), $homeForm->getData());
         } else {
-            $homeForm->get('campus')->setData($this->getUser()->getCampus());
-            $homeForm->get('organizerTrips')->setData(true);
-            $homeForm->get('registeredTrips')->setData(true);
-            $homeForm->get('notRegisteredTrips')->setData(true);
             $trips = $tripRepository->findByFilters($this->getUser(), ['campus' => $this->getUser()->getCampus(), 'searchzone' => null, 'startDate' => null, 'endDate' => null,
              'organizerTrips' => true, 'registeredTrips' => true, 'notRegisteredTrips' => true, 'pastTrips' => false]);
         }
