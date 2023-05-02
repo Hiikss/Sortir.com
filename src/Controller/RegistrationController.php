@@ -34,7 +34,12 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_register');
+            $this->addFlash(
+                'success',
+                'L\'utilisateur a bien été ajouté !'
+            );
+
+            return $this->redirectToRoute('admin_user_list');
         }
 
         return $this->render('registration/register.html.twig', [

@@ -160,31 +160,52 @@ select {
     text-align: center;
 }
 
-button {
-    width: 100%;
-    max-width: 310px;
-    height: 40px;
+.cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+button, .cancel {
+    width: 220px;
+    height: 60px;
     background-color: var(--color4);
     color: white;
     border-radius: 40px;
-    border: none;
-    outline: none;
-    cursor: pointer;
     font-weight: 600;
 }
 
-button:hover {
+button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover, .cancel:hover {
     background-color: var(--color3);
 }
 
 .row-button {
     display: flex;
     justify-content: center;
+    gap: 120px;
+    flex-wrap: wrap-reverse;
 }
 
 @media all and (min-width: 768px) {
     .row {
         justify-content: space-between;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .row-button {
+        gap: 40px;
+    }
+    
+    button, .cancel {
+        width: 250px;
     }
 }
 
@@ -212,9 +233,5 @@ button:hover {
         flex-direction: column;
         align-items: center;
         gap: 10px;
-    }
-
-    button {
-        width: 250px;
     }
 }
