@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\City;
-use App\Entity\Place;
 use APP\Entity\Trip;
-use App\Form\PlaceType;
 use App\Form\TripFormType;
 use App\Repository\StateRepository;
 use App\Repository\TripRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/trip', name: 'trip_')]
 class TripController extends AbstractController
