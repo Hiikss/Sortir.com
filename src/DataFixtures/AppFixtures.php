@@ -73,6 +73,14 @@ class AppFixtures extends Fixture
         $place3->setCity($city2);
         $manager->persist($place3);
 
+        $place4 = new Place();
+        $place4->setName('Parc');
+        $place4->setStreet('13 rue du parc');
+        $place4->setLatitude(12.05);
+        $place4->setLongitude(17.58);
+        $place4->setCity($city1);
+        $manager->persist($place4);
+
         //USER
         $user1 = new User();
         $user1->setEmail('john.doe@test.com');
@@ -112,39 +120,39 @@ class AppFixtures extends Fixture
 
         //STATE
         $state1 = new State();
-        $state1->setLabel('Créée');
+        $state1->setLabel('En création');
         $manager->persist($state1);
 
         $state2 = new State();
-        $state2->setLabel('Ouverte');
+        $state2->setLabel('Ouvert');
         $manager->persist($state2);
 
         $state3 = new State();
-        $state3->setLabel('Clôturée');
+        $state3->setLabel('Fermé');
         $manager->persist($state3);
 
         $state4 = new State();
-        $state4->setLabel('Activité en cours');
+        $state4->setLabel('En cours');
         $manager->persist($state4);
 
         $state5 = new State();
-        $state5->setLabel('Passée');
+        $state5->setLabel('Passé');
         $manager->persist($state5);
 
         $state6 = new State();
-        $state6->setLabel('Annulée');
+        $state6->setLabel('Annulé');
         $manager->persist($state6);
 
         //TRIP
         $trip1 = new Trip();
-        $trip1->setState($state5);
+        $trip1->setState($state2);
         $trip1->setOrganizer($user1);
         $trip1->setPlace($place1);
         $trip1->setCampus($campus1);
         $trip1->setName('Jardinage');
-        $trip1->setStartDateTime(new DateTime('2023-04-16 14:00:00'));
+        $trip1->setStartDateTime(new DateTime('now 14:00:00 +4 day'));
         $trip1->setDuration(90);
-        $trip1->setLimitEntryDate(new DateTime('2023-04-13'));
+        $trip1->setLimitEntryDate(new DateTime('now +3 day'));
         $trip1->setMaxRegistrationsNb(5);
         $trip1->setTripInfos('Du jardinage');
         $manager->persist($trip1);
@@ -155,9 +163,9 @@ class AppFixtures extends Fixture
         $trip2->setPlace($place2);
         $trip2->setCampus($campus1);
         $trip2->setName('Musée');
-        $trip2->setStartDateTime(new DateTime('2023-04-28 15:00:00'));
+        $trip2->setStartDateTime(new DateTime('now 15:00:00 +2 day'));
         $trip2->setDuration(120);
-        $trip2->setLimitEntryDate(new DateTime('2023-04-27'));
+        $trip2->setLimitEntryDate(new DateTime('now +1 day'));
         $trip2->setMaxRegistrationsNb(15);
         $trip2->setTripInfos('Visite au musée des arts');
         $trip2->addRegisteredUser($user1);
@@ -170,12 +178,26 @@ class AppFixtures extends Fixture
         $trip3->setPlace($place3);
         $trip3->setCampus($campus1);
         $trip3->setName('Cinéma');
-        $trip3->setStartDateTime(new DateTime('2023-04-29 14:30:00'));
+        $trip3->setStartDateTime(new DateTime('now 14:30:00 +1 day'));
         $trip3->setDuration(180);
-        $trip3->setLimitEntryDate(new DateTime('2023-04-27'));
-        $trip3->setMaxRegistrationsNb(10);
+        $trip3->setLimitEntryDate(new DateTime('now +1 day'));
+        $trip3->setMaxRegistrationsNb(1);
         $trip3->setTripInfos('Séance cinéma pour aller voir le dernier Spielberg');
         $manager->persist($trip3);
+
+        $trip4 = new Trip();
+        $trip4->setState($state3);
+        $trip4->setOrganizer($user3);
+        $trip4->setPlace($place4);
+        $trip4->setCampus($campus1);
+        $trip4->setName('Balade');
+        $trip4->setStartDateTime(new DateTime('now 10:30:00 +2 day'));
+        $trip4->setDuration(90);
+        $trip4->setLimitEntryDate(new DateTime('now -1 day'));
+        $trip4->setMaxRegistrationsNb(5);
+        $trip4->setTripInfos('Balade pour se dégourdir les jambes');
+        $trip4->addRegisteredUser($user1);
+        $manager->persist($trip4);
 
         $manager->flush();
     }
