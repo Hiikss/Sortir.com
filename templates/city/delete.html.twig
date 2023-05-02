@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suppression ville{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/deleteEntity.css') }}"> {% endblock %}
+
+{% block body %}
+<h2>Supprimer une ville</h2>
+<section>
+    <div class="info">Voulez vous vraiment supprimer la ville {{ city.name }} {{ city.postalCode }} ?</div>
+    <div class="info">Attention, cette action est irréversible !</div>
+    {{ form_start(form) }}
+        <a class="cancel" href="{{ path('admin_city_list') }}">Annuler</a>
+        <button>Valider</button>
+    {{ form_end(form) }}
+</section>
+{% endblock %}

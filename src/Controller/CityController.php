@@ -26,6 +26,13 @@ class CityController extends AbstractController
         if ($cityForm->isSubmitted() && $cityForm->isValid()) {
             $em->persist($city);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'La ville a bien été ajoutée !'
+            );
+
+            return $this->redirectToRoute('admin_city_list');
         }
 
         $searchForm = $this->createFormBuilder()
@@ -54,14 +61,28 @@ class CityController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete(int $id, CityRepository $cityRepository): Response
+    public function delete(int $id, CityRepository $cityRepository, Request $request): Response
     {
         $city = $cityRepository->find($id);
 
-        if($city) {
-           $cityRepository->remove($city, true);
+        $form = $this->createFormBuilder()->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $city) {
+            $cityRepository->remove($city, true);
+
+            $this->addFlash(
+                'success',
+                'La ville a bien été supprimée !'
+            );
+
+            return $this->redirectToRoute('admin_city_list');
         }
 
-        return $this->redirectToRoute('admin_city_list');
+        return $this->render('city/delete.html.twig', [
+            'city' => $city,
+            'form' => $form
+        ]);
     }
 }
