@@ -54,7 +54,7 @@ class CityController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete(int $id, CityRepository $cityRepository, Request $request): Response
+    public function delete(int $id, CityRepository $cityRepository): Response
     {
         $city = $cityRepository->find($id);
 
