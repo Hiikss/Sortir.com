@@ -43,7 +43,7 @@
                                 {% endif %}
                             </a>
                             <span> - </span>
-                            <a href="">Supprimer</a>
+                            <a href="{{ path('admin_user_delete', {'id': user.id}) }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}

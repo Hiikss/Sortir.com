@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Trip::class)]
+    #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Trip::class, orphanRemoval: true)]
     private Collection $organizedTrips;
 
     #[ORM\ManyToMany(targetEntity: Trip::class, inversedBy: 'registeredUsers')]
