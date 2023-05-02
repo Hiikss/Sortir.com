@@ -2,7 +2,7 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block extrastyles %} <link rel="stylesheet" href="css/home.css"> {% endblock %}
+{% block extrastyles %} <link rel="stylesheet" href={{ asset('css/home.css') }}> {% endblock %}
 
 {% block body %}
 <section id="status" class="mobile-hide">
