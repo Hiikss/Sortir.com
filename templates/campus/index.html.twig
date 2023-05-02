@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion campus{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/table.css') }}"> {% endblock %}
+
+{% block body %}
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<h2>Gérer les campus</h2>
+<section>
+    <div id="filters">
+        <h3>Filtrer les campus</h3>
+            {{ form_start(searchForm) }}
+                {{ form_label(searchForm.searchzone) }}
+                <div>
+                    <ion-icon name="search-outline"></ion-icon>
+                    {{ form_widget(searchForm.searchzone) }}
+                </div>
+                <button>Rechercher</button>
+        {{ form_end(searchForm) }}
+    </div>
+    <div id="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Campus</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {{ form_start(campusForm) }}
+                    <td>{{ form_widget(campusForm.name) }}</td>
+                    <td><button class="add-btn">Ajouter</button></td>
+                    {{ form_end(campusForm) }}
+                </tr>
+                {% for c in campus %}
+                    <tr>
+                        <td>{{ c.name }}</td>
+                        <td>
+                            <a href="">Modifier</a>
+                            <span> - </span>
+                            <a href="{{ path('admin_campus_delete', {'id': c.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for j in (0..5 - campus|length) %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
