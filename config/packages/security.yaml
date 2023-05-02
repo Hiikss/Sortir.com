@@ -25,6 +25,8 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 target: app_login
+            pattern: ^/
+            user_checker: App\Security\UserChecker
             remember_me:
                 secret:   '%kernel.secret%' # required
                 lifetime: 604800 # 1 week in seconds
