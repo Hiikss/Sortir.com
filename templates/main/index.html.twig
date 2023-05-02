@@ -2,9 +2,9 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block extrastyles %} <link rel="stylesheet" href={{ asset('css/home.css') }}> {% endblock %}
-
 {% block body %}
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <section id="status" class="mobile-hide">
 	<div>Date du jour : {{ "now"|date("d/m/Y") }}</div>
 	<div>Participant : {{ app.user.firstname }} {{ app.user.lastname|first }}.</div>
@@ -20,7 +20,10 @@
 		</div>
 		<div class="row">
 			{{ form_label(homeForm.searchzone) }}
-			{{ form_widget(homeForm.searchzone) }}
+			<div id="searchzone">
+				<ion-icon name="search-outline"></ion-icon>
+				{{ form_widget(homeForm.searchzone) }}
+			</div>
 		</div>
 		<div class="row">
 			Entre
@@ -72,7 +75,7 @@
 		<tbody>
 			{% for trip in trips %}
 			<tr>
-				<td>{{ trip.name }}</td>
+				<td><a href="{{ path('trip_details', {'id': trip.id}) }}" class="trip-name">{{ trip.name }}</a></td>
 				<td>{{ trip.startDateTime|date("d/m/y H:i") }}</td>
 				<td class="mobile-hide">{{ trip.limitEntryDate|date("d/m/Y") }}</td>
 				<td class="mobile-hide">{{ trip.registeredUsers|length }}/{{ trip.maxRegistrationsNb }}</td>
@@ -88,19 +91,23 @@
 					{% if app.user == trip.organizer and trip.state.id == 1 %}
 						<a href="">Modifier</a>
 					{% else %}
-						<a href="">Afficher</a>
+						<a href="{{ path('trip_details', {'id': trip.id}) }}">Afficher</a>
 					{% endif %}
-					{% if trip.state.id == 3 and app.user in trip.registeredUsers or trip.state.id == 2 or trip.state.id == 1 and app.user == trip.organizer %}
+					{% if trip.state.id == 3 and (app.user in trip.registeredUsers or app.user == trip.organizer) or trip.state.id == 2 or trip.state.id == 1 and app.user == trip.organizer %}
 						<span> - </span>
 						{% if trip.state.id == 3 and app.user in trip.registeredUsers or trip.state.id == 2 and app.user in trip.registeredUsers %}
 							<a href="{{ path('trip_unregister', {'id': trip.id}) }}">Se désister</a>
 						{% elseif trip.state.id == 2 and app.user != trip.organizer and app.user not in trip.registeredUsers %}
 							<a href="{{ path('trip_register', {'id': trip.id}) }}">S'inscrire</a>
-						{% elseif trip.state.id == 2 and app.user == trip.organizer %}
+						{% elseif (trip.state.id == 2 or trip.state.id == 3) and app.user == trip.organizer %}
 							<a href="{{ path('trip_cancel', {'id': trip.id}) }}">Annuler</a>
 						{% elseif trip.state.id == 1 and app.user == trip.organizer %}
 							<a href="">Publier</a>
 						{% endif %}
+					{% endif %}
+					{% if 'ROLE_ADMIN' in app.user.roles and app.user != trip.organizer %}
+						<span> - </span>
+						<a href="{{ path('trip_cancel', {'id': trip.id}) }}">Annuler</a>
 					{% endif %}
 				</td>
 				<td class="mobile-show">{{ trip.place.city.name|upper }}</td>
@@ -124,6 +131,6 @@
 </section>
 
 <section>
-	<a id="create-trip-button" class="mobile-hide" href="#">Créer une sortie</a>
+	<a id="create-trip-button" class="mobile-hide" href="{{ path('trip_create') }}">Créer une sortie</a>
 </section>
 {% endblock %}

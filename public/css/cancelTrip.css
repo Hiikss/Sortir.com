@@ -56,6 +56,6 @@ button {
 
 }
 
-a:hover, button:hover {
+.inputs-row a:hover, button:hover {
     background-color: var(--color3);
 }

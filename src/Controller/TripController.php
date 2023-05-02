@@ -43,7 +43,8 @@ class TripController extends AbstractController
         
         $states = $stateRepository->findAll();
 
-        if($trip && $this->getUser()==$trip->getOrganizer() && ($trip->getState()==$states[1] || $trip->getState()==$states[2])) {
+        if($trip && ($this->getUser()==$trip->getOrganizer() || $this->isGranted('ROLE_ADMIN')) && ($trip->getState()==$states[1] || $trip->getState()==$states[2]) 
+            && $trip->getStartDateTime()>new DateTime('now') /*&& !is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "mobile"))*/) {
             
             $tripForm = $this->createFormBuilder()
             ->add('reason', TextareaType::class, [
@@ -117,6 +118,20 @@ class TripController extends AbstractController
                 $entityManager->flush();
         }
 
+        return $this->redirectToRoute('app_main');
+    }
+
+    #[Route('/details/{id}', name: 'details')]
+    public function details(int $id, TripRepository $tripRepository): Response {
+        
+        $trip = $tripRepository->find($id);
+
+        if($trip) {
+            return $this->render('trip/details.html.twig', [
+                'trip' => $trip
+            ]);
+        }
+        
         return $this->redirectToRoute('app_main');
     }
 }

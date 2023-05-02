@@ -29,11 +29,11 @@
                    value="{{ csrf_token('authenticate') }}">
 
             <div class="options">   
-                <div class="remember">
+                <div class="cb">
                     <input type="checkbox" name="_remember_me" id="cb">
                     <label for="cb">Se souvenir</label>
                 </div>
-                <a href="#">Mot de passe oublié</a>
+                <a href="{{ path("app_forgot_password_request") }}">Mot de passe oublié</a>
             </div>
 
             <button class="btn" type="submit">

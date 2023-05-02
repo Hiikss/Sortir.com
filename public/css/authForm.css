@@ -9,8 +9,7 @@ section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: .5rem;
-    margin-bottom: 1rem;
+    margin-top: 16px;
 }
 
 .invalid {
@@ -22,16 +21,28 @@ section {
     visibility: hidden;
 }
 
-.login-form-box {
+.register-form-box,
+.login-form-box,
+.reset-form-box {
     position: relative;
     width: 100%;
     height: 100%;
-    padding: 2rem 1rem;
-    margin-top: .5rem;
+    padding: 40px 20px;
+    margin-top: 16px;
     background-color: var(--color2);
     border-radius: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.reset-form-box {
+    width: 380px;
+}
+
+.reset-form-box form {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -42,12 +53,20 @@ h2 {
     margin: 0 auto 40px;
 }
 
+.reset-form-box h2 {
+    margin-bottom: 20px;
+}
+
 .row {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     margin: 35px 0;
     gap: 40px;
+}
+
+.special-field label {
+    margin-left: 5px;
 }
 
 .inputbox {
@@ -67,6 +86,14 @@ h2 {
     pointer-events: none;
 }
 
+.invalid-field label {
+    color: crimson !important;
+}
+
+.invalid-field {
+    border-bottom: 1px solid crimson !important;
+}
+
 input:focus~label,
 input:not(:placeholder-shown)~label {
     top: -10px;
@@ -74,7 +101,7 @@ input:not(:placeholder-shown)~label {
 
 .inputbox input {
     width: 100%;
-    height: 1.7rem;
+    height: 30px;
     background: transparent;
     border: none;
     outline: none;
@@ -92,8 +119,13 @@ input:-webkit-autofill {
     filter: invert(100%);
 }
 
-.options {
+.special-field div {
+    width: 310px;
     color: white;
+    font-weight: 600;
+}
+
+.options {
     margin: -5px auto 25px;
     display: flex;
     justify-content: space-between;
@@ -105,21 +137,27 @@ input:-webkit-autofill {
 }
 
 .options a:hover {
-    /*text-decoration: underline;*/
     color: var(--color4);
 }
 
-.remember label,
-.remember input {
+.cb label,
+.cb input {
     cursor: pointer;
     user-select: none;
     accent-color: var(--color4);
-
+    color: white;
 }
 
-.remember input:hover+label,
-.remember label:hover {
+.cb input:hover+label,
+.cb label:hover {
     color: var(--color4);
+}
+
+select {
+    border-radius: 20px;
+    color: var(--color5);
+    height: 30px;
+    text-align: center;
 }
 
 button {
@@ -139,20 +177,35 @@ button:hover {
     background-color: var(--color3);
 }
 
-.login-form-box {
-    margin-top: 1rem;
+.row-button {
+    display: flex;
+    justify-content: center;
 }
-section {
-    margin-top: 1rem;
+
+@media all and (min-width: 768px) {
+    .row {
+        justify-content: space-between;
+    }
+}
+
+@media all and (min-width: 576px) and (max-width: 767px) {
+    .register-form-box {
+        width: 420px;
+    }
 }
 
 @media all and (max-width: 575px) {
-    .register-form-box {
+    .register-form-box,
+    .reset-form-box {
         width: 300px;
     }
 
-    .inputbox {
+    .inputbox, .special-field div {
         width: 250px;
+    }
+
+    select {
+        width: 170px;
     }
 
     .options {

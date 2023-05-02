@@ -28,7 +28,7 @@ class MainController extends AbstractController
                 'required' => false,
                 'label' => 'Le nom de la sortie contient',
                 'attr' => [
-                    'placeholder' => 'rechercher'
+                    'placeholder' => 'Rechercher'
                 ]
             ])
             ->add('startDate', DateType::class, [
