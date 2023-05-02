@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/admin/user/list', name: 'admin_user_list')]
-    public function index(UserRepository $userRepository, Request $request): Response
+    public function list(UserRepository $userRepository, Request $request): Response
     {
         
 
