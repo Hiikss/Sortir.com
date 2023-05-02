@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annuler une sortie{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/cancelTrip.css') }}"> {% endblock %}
+
+{% block body %}
+<section>
+    <h2>Annuler une sortie</h2>
+
+    <div class="row">
+        <div class="label">Nom de la sortie :</div>
+        <div class="value">{{ trip.name }}</div>
+    </div>
+    <div class="row">
+        <div class="label">Date de la sortie :</div>
+        <div class="value">{{ trip.startDateTime|date("d/m/Y") }}</div>
+    </div>
+    <div class="row">
+        <div class="label">Campus :</div>
+        <div class="value">{{ trip.campus.name }}</div>
+    </div>
+    <div class="row">
+        <div class="label">Lieu :</div>
+        <div class="value">{{ trip.place.street }} {{ trip.place.city.postalCode }} {{ trip.place.city.name }}</div>
+    </div>
+    {{ form_start(tripForm) }}
+        <div class="row">
+            <div class="label">{{ form_label(tripForm.reason) }}</div>
+            <div class="value">{{ form_widget(tripForm.reason) }}</div>
+        </div>  
+        <div class="inputs-row">
+            <a href="{{ path('app_main') }}">Annuler</a>
+            <button class="btn" type="submit">Enregistrer</button>
+        </div>
+        {{ form_end(tripForm) }}
+</section>
+{% endblock %}

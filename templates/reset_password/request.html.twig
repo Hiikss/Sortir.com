@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block extrastyles %}<link rel="stylesheet" href="{{ asset('css/authForm.css') }}">{% endblock %}
+
+{% block body %}
+<section>
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <div class="reset-form-box">
+        <div class="form">
+            <h2>Réinitialisation du mot de passe</h2>
+            {{ form_start(requestForm) }}
+    
+            <div class="row">
+                <div class="inputbox">
+                {{ form_widget(requestForm.email) }}
+                {{ form_label(requestForm.email) }}
+                </div>
+            </div>
+
+            <button class="btn btn-primary">Envoyer email de réinitialisation</button>
+            {{ form_end(requestForm) }}
+        </div>
+    </div>
+</section>
+{% endblock %}

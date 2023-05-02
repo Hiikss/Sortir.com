@@ -14,13 +14,13 @@
             <h2>Connexion</h2>
             <div class="row">
                 <div class="inputbox">
-                    <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder=" " required autofocus>
+                    <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" placeholder=" " required autofocus>
                     <label for="inputEmail">Identifiant</label>
                 </div>
             </div>
             <div class="row">
                 <div class="inputbox">
-                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder=" " required>
+                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" placeholder=" " required>
                     <label for="inputPassword">Mot de passe</label>
                 </div>
             </div>
@@ -29,11 +29,11 @@
                    value="{{ csrf_token('authenticate') }}">
 
             <div class="options">   
-                <div class="remember">
+                <div class="cb">
                     <input type="checkbox" name="_remember_me" id="cb">
                     <label for="cb">Se souvenir</label>
                 </div>
-                <a href="#">Mot de passe oublié</a>
+                <a href="{{ path("app_forgot_password_request") }}">Mot de passe oublié</a>
             </div>
 
             <button class="btn" type="submit">

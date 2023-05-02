@@ -1,18 +1,131 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscrire un compte{% endblock %}
 {% block extrastyles %}
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/authForm.css') }}">
 {% endblock %}
 {% block body %}
-    <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
-
-    <div class="register">
-        {{ form_start(registrationForm) }}
-        {{ form_widget(registrationForm) }}
-        <button class="btn" type="submit">
-            S'inscrire
-        </button>
-        {{ form_end(registrationForm) }}
-    </div>
+<section>  
+    {% if not registrationForm.vars.valid %}
+        <div class="invalid">
+            {% if form_errors(registrationForm.email) %}
+                <div>L'email est incorrect</div>
+            {% endif %}
+            {% if form_errors(registrationForm.firstname) %}
+                <div>Le prénom est incorrect</div>
+            {% endif %}
+            {% if form_errors(registrationForm.lastname) %}
+                <div>Le nom est incorrect</div>
+            {% endif %}
+            {% if form_errors(registrationForm.pseudo) %}
+                <div>Le pseudo est incorrect</div>
+            {% endif %}
+            {% if form_errors(registrationForm.telephone) %}
+                <div>Le téléphone est incorrect</div>
+            {% endif %}
+            {% if form_errors(registrationForm.campus) %}
+                <div>Le campus est incorrect</div>
+            {% endif %}
+            {% if form_errors(registrationForm.active) %}
+                <div>Le champ actif est incorrect</div>
+            {% endif %}
+            {% if form_errors(registrationForm.password.first) %}
+                <div>Les mots de passe ne correspondent pas</div>
+            {% endif %}
+        </div>
+    {% endif %}
+        <div class="register-form-box">
+            <div class="form">
+                <h2>Inscrire un compte</h2>
+                {{ form_start(registrationForm) }}
+                
+                <div class="row">
+                    {% if form_errors(registrationForm.email) %}
+                        <div class="inputbox invalid-field"> 
+                    {% else %}
+                        <div class="inputbox">
+                    {% endif %}
+                        {{ form_widget(registrationForm.email) }}
+                        {{ form_label(registrationForm.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    {% if form_errors(registrationForm.firstname) %}
+                        <div class="inputbox invalid-field"> 
+                    {% else %}
+                        <div class="inputbox">
+                    {% endif %}
+                        {{ form_widget(registrationForm.firstname) }}
+                        {{ form_label(registrationForm.firstname) }}
+                    </div>
+                    {% if form_errors(registrationForm.lastname) %}
+                        <div class="inputbox invalid-field"> 
+                    {% else %}
+                        <div class="inputbox">
+                    {% endif %}
+                        {{ form_widget(registrationForm.lastname) }}
+                        {{ form_label(registrationForm.lastname) }}
+                    </div>
+                </div>
+                <div class="row">
+                    {% if form_errors(registrationForm.pseudo) %}
+                        <div class="inputbox invalid-field"> 
+                    {% else %}
+                        <div class="inputbox">
+                    {% endif %}
+                        {{ form_widget(registrationForm.pseudo) }}
+                        {{ form_label(registrationForm.pseudo) }}
+                    </div>
+                    {% if form_errors(registrationForm.telephone) %}
+                        <div class="inputbox invalid-field"> 
+                    {% else %}
+                        <div class="inputbox">
+                    {% endif %}
+                        {{ form_widget(registrationForm.telephone) }}
+                        {{ form_label(registrationForm.telephone) }}
+                    </div>
+                </div>
+                <div class="row">
+                    {% if form_errors(registrationForm.password.first) %}
+                        <div class="inputbox invalid-field"> 
+                    {% else %}
+                        <div class="inputbox">
+                    {% endif %}
+                        {{ form_widget(registrationForm.password.first) }}
+                        {{ form_label(registrationForm.password.first) }}
+                    </div>
+                    {% if form_errors(registrationForm.password.first) %}
+                        <div class="inputbox invalid-field"> 
+                    {% else %}
+                        <div class="inputbox">
+                    {% endif %}
+                        {{ form_widget(registrationForm.password.second) }}
+                        {{ form_label(registrationForm.password.second) }}
+                    </div>
+                </div>
+                <div class="row special-field">
+                    {% if form_errors(registrationForm.campus) %}
+                        <div class=""> 
+                    {% else %}
+                        <div class="">
+                    {% endif %}
+                        {{ form_label(registrationForm.campus) }}
+                        {{ form_widget(registrationForm.campus) }}
+                    </div>
+                    {% if form_errors(registrationForm.active) %}
+                        <div class="cb"> 
+                    {% else %}
+                        <div class="cb">
+                    {% endif %}
+                        {{ form_widget(registrationForm.active) }}
+                        {{ form_label(registrationForm.active) }}
+                    </div>
+                </div>
+                <div class="row-button">
+                    <button type="submit" class="btn">Inscrire</button>
+                </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+</section>
 {% endblock %}

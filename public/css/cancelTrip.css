@@ -1,0 +1,61 @@
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+.row, .inputs-row {
+    display: flex;
+}
+
+.label {
+    min-width: 200px;
+}
+
+.value, textarea {
+    min-width: 250px;
+}
+
+textarea {
+    resize: none;
+    height: 120px;
+}
+
+.inputs-row {
+    margin-top: 30px;
+    gap: 60px;
+}
+
+.inputs-row a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+button {
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.inputs-row a, button {
+    width: 150px;
+    height: 60px;
+    background-color: var(--color4);
+    border-radius: 50px;
+    font-weight: 600;
+    color: white;
+
+}
+
+.inputs-row a:hover, button:hover {
+    background-color: var(--color3);
+}

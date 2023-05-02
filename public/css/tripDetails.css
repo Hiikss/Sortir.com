@@ -1,0 +1,136 @@
+h2 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+section:first-of-type {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 50px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.1rem;
+}
+
+.row {
+    display: flex;
+}
+
+section:first-of-type div:first-child .row div:first-child {
+    width: 225px;
+}
+
+section:first-of-type div:first-child .row div:last-child {
+    max-width: 280px;
+}
+
+section:first-of-type div:last-child .row div:first-child {
+    width: 170px;
+}
+
+section:last-of-type {
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section:last-of-type div {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+table {
+    width: 500px;
+    border-collapse: collapse;
+    border: 2px solid;
+    margin-top: 15px;
+}
+
+th {
+    height: 30px;
+    background-color: var(--color4);
+    text-align: left;
+}
+
+td {
+    height: 40px;
+}
+
+th:not(th:last-of-type), td:not(td:last-of-type) {
+    border-right: 2px solid;
+    word-wrap: break-word;
+}
+
+tbody {
+    display: block;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    height: 210px;
+}
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody tr:nth-child(even) td {
+    background-color: var(--color2);
+}
+
+@media all and (min-width: 768px) {
+    th:first-of-type, td:first-of-type {
+        width: 150px;
+    }
+}
+
+@media all and (max-width: 767px) {
+    section:first-of-type {
+        margin-top: 20px !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    section:first-of-type div:last-child .row div:first-child {
+        width: 225px;
+    }
+
+    section:first-of-type div .row div:last-child {
+        width: 200px;
+    }
+
+    .column {
+        gap: 15px;
+        font-size: 1rem;
+    }
+
+    section:last-of-type {
+        margin-top: 30px;
+    }
+
+    table {
+        width: 80%;
+    }
+}
+
+@media all and (max-width: 575px) {
+    h2 {
+        display: none;
+    }
+    section:first-of-type div .row div:last-child {
+        width: 140px;
+    }
+}
+
+@media all and (max-width: 400px) {
+    section:first-of-type {
+        margin-left: 10px;
+    }
+}
