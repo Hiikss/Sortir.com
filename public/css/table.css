@@ -57,7 +57,7 @@ table a {
     text-decoration: none;
 }
 
-table a:hover {
+table a:hover, .add-btn:hover {
     color: var(--color4);
 }
 
@@ -101,6 +101,12 @@ thead, tbody tr {
 
 tbody tr:nth-child(even) td {
     background-color: var(--color2);
+}
+
+.add-btn {
+    color: var(--color5);
+    border: none;
+    cursor: pointer;
 }
 
 #add-user {

@@ -31,7 +31,7 @@ class Place
     private Collection $trips;
 
     #[ORM\ManyToOne(inversedBy: 'places')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private ?City $city = null;
 
     public function __construct()
