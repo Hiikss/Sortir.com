@@ -22,33 +22,37 @@
     </div>
     <div id="table">
         <table>
-            <tr>
-                <th class="mobile-hide">Utilisateur</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-            {% for user in users %}
+            <thead>
                 <tr>
-                    <td class="mobile-hide">{{ user.firstname }} {{ user.lastname|upper }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>
-                        {% if user.active == true %}
-                            <a href="">Désactiver</a>
-                        {% else %}
-                            <a href="">Activer</a>
-                        {% endif %}
-                        <span> - </span>
-                        <a href="">Supprimer</a>
-                    </td>
+                    <th class="mobile-hide">Utilisateur</th>
+                    <th>Email</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-            {% for j in (0..6 - users|length) %}
-			<tr>
-				<td class="mobile-hide"></td>
-				<td></td>
-				<td></td>
-			</tr>
-			{% endfor %}
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="mobile-hide">{{ user.firstname }} {{ user.lastname|upper }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.active == true %}
+                                <a href="">Désactiver</a>
+                            {% else %}
+                                <a href="">Activer</a>
+                            {% endif %}
+                            <span> - </span>
+                            <a href="">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for j in (0..6 - users|length) %}
+                <tr>
+                    <td class="mobile-hide"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 	<a id="add-user" href="{{ path('admin_register') }}">Ajouter un utilisateur</a>
