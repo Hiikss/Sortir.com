@@ -89,7 +89,7 @@ class AppFixtures extends Fixture
         $user1->setPseudo('JoDo');
         $user1->setLastname('Doe');
         $user1->setFirstname('John');
-        $user1->setTelephone(0102030405);
+        $user1->setTelephone("0102030405");
         $user1->setActive(true);
         $user1->setCampus($campus1);
         $manager->persist($user1);
@@ -101,7 +101,7 @@ class AppFixtures extends Fixture
         $user2->setPseudo('admin');
         $user2->setLastname('admin');
         $user2->setFirstname('admin');
-        $user2->setTelephone(0102030405);
+        $user2->setTelephone("0102030405");
         $user2->setActive(true);
         $user2->setCampus($campus1);
         $manager->persist($user2);
@@ -113,7 +113,7 @@ class AppFixtures extends Fixture
         $user3->setPseudo('toto');
         $user3->setLastname('Titi');
         $user3->setFirstname('Toto');
-        $user3->setTelephone(0102030405);
+        $user3->setTelephone("0102030405");
         $user3->setActive(true);
         $user3->setCampus($campus2);
         $manager->persist($user3);
