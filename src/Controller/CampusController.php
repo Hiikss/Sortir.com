@@ -26,6 +26,13 @@ class CampusController extends AbstractController
         if ($campusForm->isSubmitted() && $campusForm->isValid()) {
             $em->persist($campus);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Le campus a bien été ajouté !'
+            );
+
+            return $this->redirectToRoute('admin_campus_list');
         }
 
         $searchForm = $this->createFormBuilder()
@@ -54,14 +61,28 @@ class CampusController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete(int $id, CampusRepository $campusRepository): Response
+    public function delete(int $id, CampusRepository $campusRepository, Request $request): Response
     {
         $campus = $campusRepository->find($id);
 
-        if($campus) {
-           $campusRepository->remove($campus, true);
+        $form = $this->createFormBuilder()->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $campus) {
+            $campusRepository->remove($campus, true);
+
+            $this->addFlash(
+                'success',
+                'Le campus a bien été supprimé !'
+            );
+
+            return $this->redirectToRoute('admin_campus_list');
         }
 
-        return $this->redirectToRoute('admin_campus_list');
+        return $this->render('campus/delete.html.twig', [
+            'campus' => $campus,
+            'form' => $form
+        ]);
     }
 }
