@@ -55,14 +55,28 @@ class UserController extends AbstractController
     }
 
     #[Route('/admin/user/delete/{id}', name: 'admin_user_delete')]
-    public function delete(int $id, UserRepository $userRepository, EntityManagerInterface $em): Response
+    public function delete(int $id, UserRepository $userRepository, Request $request): Response
     {
         $user = $userRepository->find($id);
 
-        if($user) {
-           $userRepository->remove($user, true);
+        $form = $this->createFormBuilder()->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $user) {
+            $userRepository->remove($user, true);
+
+            $this->addFlash(
+                'success',
+                'L\'utilisateur a bien été supprimé !'
+            );
+
+            return $this->redirectToRoute('admin_user_list');
         }
 
-        return $this->redirectToRoute('admin_user_list');
+        return $this->render('user/delete.html.twig', [
+            'user' => $user,
+            'form' => $form
+        ]);
     }
 }
