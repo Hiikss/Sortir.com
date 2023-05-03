@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de lieu{{ place.name }}{% endblock %}
+
+{% block body %}
+    <h1>Modification de {{ place.name }}</h1>
+
+    {{ form_start(placeForm) }}
+
+    {{ form_row(placeForm.name, {'label': 'Nom'}) }}
+    {{ form_row(placeForm.address, {'label': 'Adresse'}) }}
+    {{ form_row(placeForm.city, {'label': 'Ville'}) }}
+
+    <button type="submit" class="btn btn-success">Modifier</button>
+    <a href="{{ path('place_list') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    {{ form_end(placeForm) }}
+{% endblock %}
+

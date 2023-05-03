@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
+use App\Entity\Place;
+use App\Entity\State;
 use APP\Entity\Trip;
 use App\Form\TripFormType;
 use App\Repository\StateRepository;
 use App\Repository\TripRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,41 +20,52 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/trip', name: 'trip_')]
 class TripController extends AbstractController
 {
+
     #[Route('/create', name: 'create')]
-     public function create(Request $request, EntityManagerInterface $entityManager): Response
-     {
-     $trip = new Trip();
-     $form = $this->createForm(TripFormType::class, $trip);
+    public function create(Request $request, EntityManagerInterface $entityManager, StateRepository $stateRepository): Response
+    {
+        $trip = new Trip();
+        $form = $this->createForm(TripFormType::class, $trip);
 
-     $form->handleRequest($request);
-     if ($form->isSubmitted() && $form->isValid()) {
+        $states = $stateRepository->findAll();
 
-         //$request->request->getClicked();
+        $form->handleRequest($request);
 
-         $trip = $form->getData();
-         //$trip = $TripRepository->trip($form);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('enregistrer')->isClicked()) {
+                $trip->setState($states[0]);
+            } else if ($form->get('publier')->isClicked()) {
+                $trip->setState($states[1]);
+            }
 
-         $entityManager->persist($trip);
-         $entityManager->flush();
+            $user = $this->getUser();
+            $trip->setOrganizer($user);
+            $place = $form->get('place')->getData();
+            $trip->setPlace($place);
 
-         return $this->redirectToRoute('app_main');
-     }
+            $entityManager->persist($trip);
+            $entityManager->persist($place);
+            $entityManager->flush();
 
-     return $this->render('trip/create.html.twig', [
-         'TripForm' => $form->createView(),
-     ]);
+            return $this->redirectToRoute('app_main');
+        }
+
+        return $this->render('trip/create.html.twig', [
+            'TripForm' => $form->createView(),
+        ]);
     }
+
 
     #[Route('/cancel/{id}', name: 'cancel')]
     public function cancel(Request $request, int $id, TripRepository $tripRepository, StateRepository $stateRepository, EntityManagerInterface $entityManager): Response {
 
         $trip = $tripRepository->find($id);
-        
+
         $states = $stateRepository->findAll();
 
-        if($trip && ($this->getUser()==$trip->getOrganizer() || $this->isGranted('ROLE_ADMIN')) && ($trip->getState()==$states[1] || $trip->getState()==$states[2]) 
+        if($trip && ($this->getUser()==$trip->getOrganizer() || $this->isGranted('ROLE_ADMIN')) && ($trip->getState()==$states[1] || $trip->getState()==$states[2])
             && $trip->getStartDateTime()>new DateTime('now') /*&& !is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "mobile"))*/) {
-            
+
             $tripForm = $this->createFormBuilder()
             ->add('reason', TextareaType::class, [
                 'label' => 'Motif'
@@ -60,7 +74,7 @@ class TripController extends AbstractController
             $tripForm->handleRequest($request);
 
             if ($tripForm->isSubmitted() && $tripForm->isValid()) {
-                
+
                 $trip->setState($states[5]);
                 $trip->setCancelReason($tripForm->get('reason')->getData());
 

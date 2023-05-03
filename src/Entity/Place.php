@@ -27,7 +27,7 @@ class Place
     #[ORM\Column]
     private ?float $longitude = null;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Trip::class)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Trip::class, orphanRemoval: true)]
     private Collection $trips;
 
     #[ORM\ManyToOne(inversedBy: 'places')]

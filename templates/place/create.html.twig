@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un lieu{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="#"> {% endblock %}
+
+{% block body %}
+    <h3>Ajouter un lieu</h3>
+
+    <section>
+        {{ form_start(PlaceForm)}}
+        {{ form_widget(PlaceForm) }}
+
+        {{ form_end(PlaceForm) }}
+    </section>
+    <section>
+        <button class="btn" type="submit">Enregistrer</button>
+        <a id="cancel-trip-button" class="mobile-hide" href="{{ path('app_main') }}">Annuler</a>
+    </section>
+
+{% endblock %}

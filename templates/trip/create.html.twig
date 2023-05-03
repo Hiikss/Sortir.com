@@ -1,17 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create a trip{% endblock %}
+{% block title %}Créer une sortie{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/createTrip.css') }}"> {% endblock %}
+
 {% block body %}
-    <div>
-        {{ form_start(TripForm) }}
+    <h3>Créer une sortie</h3>
 
-        {{ form_widget(TripForm) }}
-
-        <button type="submit">Enregistrer</button>
-        <button type="submit">Publier la sortie</button>
-        <button type="submit">Annuler</button>
-
-
-        {{ form_end(TripForm)}}
-    </div>
+<section>
+    {{ form_start(TripForm) }}
+    {{ form_widget(TripForm) }}
+</section>
+    <div><a id="create-trip-button" class="mobile-hide" href="{{ path('app_main') }}">Annuler</a></div>
+{{ form_end(TripForm) }}
 {% endblock %}
