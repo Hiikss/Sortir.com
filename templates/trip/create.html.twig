@@ -8,9 +8,9 @@
     <h3>Créer une sortie</h3>
 
 <section>
-    {{ form_start(TripForm) }}
-    {{ form_widget(TripForm) }}
+    {{ form_start(tripForm) }}
+    {{ form_widget(tripForm) }}
 </section>
     <div><a id="create-trip-button" class="mobile-hide" href="{{ path('app_main') }}">Annuler</a></div>
-{{ form_end(TripForm) }}
+{{ form_end(tripForm) }}
 {% endblock %}
