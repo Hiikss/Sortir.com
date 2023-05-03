@@ -91,7 +91,7 @@
 					{{ trip.organizer.lastname|first }}.</td>
 				<td class="mobile-hide">
 					{% if app.user == trip.organizer and trip.state.id == 1 %}
-						<a href="">Modifier</a>
+						<a href="{{ path('trip_edit', {'id': trip.id}) }}">Modifier</a>
 					{% else %}
 						<a href="{{ path('trip_details', {'id': trip.id}) }}">Afficher</a>
 					{% endif %}
