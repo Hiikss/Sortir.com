@@ -154,6 +154,25 @@ class TripController extends AbstractController
         
         return $this->redirectToRoute('app_main');
     }
+
+    #[Route('/publish/{id}', name: 'publish')]
+    public function publish(int $id, TripRepository $tripRepository, StateRepository $stateRepository, EntityManagerInterface $entityManager): Response {
+        
+        $trip = $tripRepository->find($id);
+
+        $states = $stateRepository->findAll();
+
+        $user = $this->getUser();
+        if($trip && $trip->getState()==$states[0] && $trip->getOrganizer()==$user && $trip->getLimitEntryDate()>new DateTime('now')) {
+                
+            $trip->setState($states[1]);
+            
+            $entityManager->persist($trip);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_main');
+    }
 }
 
 
