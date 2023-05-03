@@ -1,0 +1,155 @@
+section {
+    margin-left: 30px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.flash {
+    text-align: center;
+    font-size: 1.2rem;
+    color: green;
+    font-weight: 500;
+}
+
+#filters {
+    margin-top: 40px;
+}
+
+#filters form {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 1.1rem;
+    flex-wrap: wrap;
+}
+
+#filters input {
+    height: 30px;
+    border-radius: 20px;
+    border: 1px solid #767676;
+    padding-left: 30px;
+    padding-right: 10px;
+    margin-left: -30px;
+}
+
+#filters button {
+    margin-left: 20px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#filters button, #add-user {
+    width: 200px;
+    height: 60px;
+    background-color: var(--color4);
+    color: white;
+    border-radius: 40px;
+    font-weight: 600;
+}
+
+#filters button:hover, #add-user:hover {
+    background-color: var(--color3);
+}
+
+#table {
+    display: flex;
+    margin-top: 40px;
+}
+
+table a {
+    color: var(--color5);
+    text-decoration: none;
+}
+
+table a:hover, .add-btn:hover {
+    color: var(--color4);
+}
+
+th {
+    height: 30px;
+    background-color: var(--color4);
+    text-align: left;
+}
+
+td {
+    height: 40px;
+}
+
+th:not(:last-child), td:not(:last-of-type) {
+    border-right: 2px solid;
+    word-wrap: break-word;
+}
+
+td, th {
+    text-align: center;
+}
+
+table {
+    width: 850px;
+    border-collapse: collapse;
+    border: 2px solid;
+}
+
+tbody {
+    display: block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 294px;
+}
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody tr:nth-child(even) td {
+    background-color: var(--color2);
+}
+
+td input[type=text] {
+    max-width: fit-content;
+    width: 100%;
+    padding-right: 0;
+}
+
+.add-btn {
+    color: var(--color5);
+    border: none;
+    cursor: pointer;
+}
+
+#add-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+@media all and (max-width: 575px) {
+    section {
+        margin: auto;
+        width: 95%;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    #filters form {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #table {
+        margin-top: 20px;
+    }
+
+    .mobile-hide {
+        display: none;
+    }
+}
