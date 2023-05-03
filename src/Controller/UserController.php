@@ -2,20 +2,64 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class UserController extends AbstractController
 {
     #[Route('/admin/user/list', name: 'admin_user_list')]
-    public function list(UserRepository $userRepository, Request $request): Response
+    public function list(UserRepository $userRepository, Request $request, SerializerInterface $serializer, CampusRepository $campusRespository, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $form = $this->createFormBuilder()
+        $fileForm = $this->createFormBuilder()
+            ->add('file', FileType::class, [
+                'required' => true,
+                'label' => 'Importer des utilisateurs par fichier .csv',
+                'attr' => [
+                    'accept' => '.csv'
+                ]
+            ])->getForm();
+
+        $fileForm->handleRequest($request);
+
+        if ($fileForm->isSubmitted() && $fileForm->isValid()) {
+
+            $data = $serializer->decode(file_get_contents($fileForm->get('file')->getData()), CsvEncoder::FORMAT);
+
+            foreach ($data as $row) {
+                $user = new User();
+                $user->setEmail($row['email']);
+                $user->setRoles(explode(",", $row['roles']));
+                $user->setPassword($passwordHasher->hashPassword($user, $row['password']));
+                $user->setPseudo($row['pseudo']);
+                $user->setLastname($row['lastname']);
+                $user->setFirstname($row['firstname']);
+                $user->setTelephone($row['telephone']);
+                $user->setActive($row['active']);
+                $user->setCampus($campusRespository->find($row['campus_id']));
+
+                $em->persist($user);
+                $em->flush();
+            }
+
+            $this->addFlash(
+                'success',
+                'Les utilisateurs ont bien été importés !'
+            );
+            return $this->redirectToRoute('admin_user_list');
+        }
+
+        $searchForm = $this->createFormBuilder()
             ->add('searchzone', TextType::class, [
                 'required' => false,
                 'label' => 'Rechercher un utilisateur :',
@@ -24,10 +68,10 @@ class UserController extends AbstractController
                 ]
             ])->getForm();
 
-        $form->handleRequest($request);
+        $searchForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $users = $userRepository->findByFilters($form->getData());
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $users = $userRepository->findByFilters($searchForm->getData());
         }
         else {
             $users = $userRepository->findAll();
@@ -35,7 +79,8 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
-            'form' => $form
+            'searchForm' => $searchForm,
+            'fileForm' => $fileForm
         ]);
     }
 

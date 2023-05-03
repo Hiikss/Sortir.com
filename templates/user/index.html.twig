@@ -16,14 +16,14 @@
 <section>
     <div id="filters">
         <h3>Filtrer les utilisateurs</h3>
-            {{ form_start(form) }}
-                {{ form_label(form.searchzone) }}
+            {{ form_start(searchForm) }}
+                {{ form_label(searchForm.searchzone) }}
                 <div>
                     <ion-icon name="search-outline"></ion-icon>
-                    {{ form_widget(form.searchzone) }}
+                    {{ form_widget(searchForm.searchzone) }}
                 </div>
                 <button>Rechercher</button>
-        {{ form_end(form) }}
+        {{ form_end(searchForm) }}
     </div>
     <div id="table">
         <table>
@@ -62,6 +62,13 @@
             </tbody>
         </table>
     </div>
-	<a id="add-user" href="{{ path('admin_register') }}">Ajouter un utilisateur</a>
+    <div class="under-table">
+        <a id="add-user" href="{{ path('admin_register') }}">Ajouter un utilisateur</a>
+        {{ form_start(fileForm) }}
+            {{ form_label(fileForm.file) }}
+            {{ form_widget(fileForm.file) }}
+            <button>Importer des utilisateurs</button>
+        {{ form_end(fileForm) }}
+    </div>
 </section>
 {% endblock %}
