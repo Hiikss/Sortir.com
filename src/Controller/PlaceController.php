@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlaceController extends AbstractController
 {
     #[Route('/place/list', name: 'place_list')]
-    public function new(Request $request, EntityManagerInterface $em, PlaceRepository $placeRepository): Response
+    public function list(Request $request, EntityManagerInterface $em, PlaceRepository $placeRepository): Response
     {
         $place = new Place();
         $placeForm = $this->createForm(PlaceType::class, $place);
@@ -23,18 +23,14 @@ class PlaceController extends AbstractController
         $placeForm->handleRequest($request);
 
         if ($placeForm->isSubmitted() && $placeForm->isValid()) {
-            $user = $this->getUser();
-            if (!$user) {
-                throw $this->createNotFoundException('User not found.');
-            }
-
-            $place = $placeForm->getData();
-            $place->setOrganizer($user);
 
             $em->persist($place);
             $em->flush();
 
-            $this->addFlash('success', 'Le lieu a bien été ajouté!');
+            $this->addFlash(
+                'success',
+                'Le lieu a bien été ajouté!'
+            );
 
             return $this->redirectToRoute('place_list');
         }
@@ -50,7 +46,6 @@ class PlaceController extends AbstractController
 
         $searchForm->handleRequest($request);
 
-        $places = [];
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $places = $placeRepository->findByFilters($searchForm->getData());
         } else {
@@ -58,13 +53,13 @@ class PlaceController extends AbstractController
         }
 
         return $this->render('place/list.html.twig', [
-            'placeForm' => $placeForm->createView(),
+            'placeForm' => $placeForm,
             'places' => $places,
             'searchForm' => $searchForm
         ]);
     }
 
-    #[Route('/place/{id}/edit', name: 'place_edit')]
+    #[Route('/place/edit/{id}', name: 'place_edit')]
     public function edit(Request $request, EntityManagerInterface $entityManager, Place $place): Response
     {
         $placeForm = $this->createForm(PlaceType::class, $place);
@@ -83,20 +78,21 @@ class PlaceController extends AbstractController
         }
 
         return $this->render('place/edit.html.twig', [
-            'placeForm' => $placeForm->createView(),
+            'placeForm' => $placeForm,
         ]);
     }
 
-    #[Route('/admin/place/{id}/delete', name: 'place_delete')]
-    public function delete(Request $request, EntityManagerInterface $entityManager, Place $place): Response
+    #[Route('/admin/place/delete/{id}', name: 'place_delete')]
+    public function delete(int $id, Request $request, PlaceRepository $placeRepository): Response
     {
-        $placeForm = $this->createFormBuilder()->getForm();
+        $place = $placeRepository->find($id);
 
-        $placeForm->handleRequest($request);
+        $form = $this->createFormBuilder()->getForm();
 
-        if ($placeForm->isSubmitted() && $placeForm->isValid()) {
-            $entityManager->remove($place);
-            $entityManager->flush();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $placeRepository->remove($place, true);
 
             $this->addFlash(
                 'success',
@@ -107,7 +103,7 @@ class PlaceController extends AbstractController
         }
 
         return $this->render('place/delete.html.twig', [
-            'placeForm' => $placeForm->createView(),
+            'form' => $form,
             'place' => $place,
         ]);
     }
