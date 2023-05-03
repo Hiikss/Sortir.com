@@ -64,13 +64,18 @@
                         </td>
                     </tr>
                 {% endfor %}
-                {% for j in (0..5 - places|length) %}
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                {% endfor %}
+                {% if places|length < 6 %}
+                    {% for j in (0..5 - places|length) %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>
