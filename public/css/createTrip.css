@@ -1,5 +1,19 @@
+h3{
+display: flex;
+justify-content: center;
+}
+
+.required {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+
+
+
 .btn {
-    display: inline-grid;
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 200px;
@@ -14,4 +28,18 @@
 
 .btn:hover {
     background-color: var(--color3);
+}
+
+#create-trip-button {
+display: inline-grid;
+justify-content: center;
+align-items: center;
+width: 200px;
+height: 60px;
+background-color: var(--color4);
+border-radius: 50px;
+font-weight: 600;
+margin-top: 20px;
+color: white;
+text-decoration: none;
 }

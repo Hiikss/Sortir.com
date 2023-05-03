@@ -9,17 +9,11 @@
 
 <section>
     {{ form_start(TripForm) }}
-
     {{ form_widget(TripForm) }}
-
-    {{ form_end(TripForm) }}
-
 </section>
-    <section>
-        <a id="add-trip-button"  href="{{ path('place_create') }}">+</a>
-        <button class="btn" type="submit">Enregistrer</button>
-        <button class="btn" type="submit">Publier la sortie</button>
-        <a id="cancel-trip-button" class="mobile-hide" href="{{ path('app_main') }}">Annuler</a>
-    </section>
-
+    <div><a id="create-trip-button" class="mobile-hide" href="{{ path('place_create') }}">+</a></div>
+    <div><button type="submit" class="btn">Enregistrer</button></div>
+    <div><button type="submit" class="btn">Publier la sortie</button></div>
+    <div><a id="create-trip-button" class="mobile-hide" href="{{ path('app_main') }}">Annuler</a></div>
+{{ form_end(TripForm) }}
 {% endblock %}
