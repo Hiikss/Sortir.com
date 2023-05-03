@@ -39,28 +39,14 @@ class CityRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return City[] Returns an array of City objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByFilters($filters) {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.name like :searchzone')
+            ->setParameter('searchzone', '%'.$filters['searchzone'].'%');
 
-//    public function findOneBySomeField($value): ?City
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
 }

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suppression campus{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/deleteEntity.css') }}"> {% endblock %}
+
+{% block body %}
+<h2>Supprimer un campus</h2>
+<section>
+    <div class="info">Voulez vous vraiment supprimer le campus {{ campus.name }} ?</div>
+    <div class="info">Attention, cette action est irréversible !</div>
+    {{ form_start(form) }}
+        <a class="cancel" href="{{ path('admin_campus_list') }}">Annuler</a>
+        <button>Valider</button>
+    {{ form_end(form) }}
+</section>
+{% endblock %}

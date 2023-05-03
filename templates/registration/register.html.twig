@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscrire un compte{% endblock %}
+{% block title %}Ajouter un utilisateur{% endblock %}
 {% block extrastyles %}
     <link rel="stylesheet" href="{{ asset('css/authForm.css') }}">
 {% endblock %}
@@ -36,7 +36,7 @@
     {% endif %}
         <div class="register-form-box">
             <div class="form">
-                <h2>Inscrire un compte</h2>
+                <h2>Ajouter un utilisateur</h2>
                 {{ form_start(registrationForm) }}
                 
                 <div class="row">
@@ -122,7 +122,8 @@
                     </div>
                 </div>
                 <div class="row-button">
-                    <button type="submit" class="btn">Inscrire</button>
+                    <a class="cancel" href="{{ path('admin_user_list') }}">Annuler</a>
+                    <button type="submit" class="btn">Ajouter</button>
                 </div>
                 {{ form_end(registrationForm) }}
             </div>
