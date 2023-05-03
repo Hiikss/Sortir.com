@@ -56,8 +56,6 @@ class TripRepository extends ServiceEntityRepository
         $qb->leftJoin('t.registeredUsers', 'registered')
             ->addSelect('registered');
 
-        // Ceci est en trop. Vous faite une joindre sur l'entité place mais vous n'utilisez pas place
-        // par la suite. Vous pouvez donc enlever tout ce qui est en trop.
         $qb->leftJoin('t.place', 'place')
             ->addSelect('place');
 
