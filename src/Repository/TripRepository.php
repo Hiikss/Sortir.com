@@ -56,6 +56,7 @@ class TripRepository extends ServiceEntityRepository
         $qb->leftJoin('t.registeredUsers', 'registered')
             ->addSelect('registered');
 
+        //On utilise la ville pour la version mobile
         $qb->leftJoin('t.place', 'place')
             ->addSelect('place');
 
