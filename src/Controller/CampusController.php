@@ -86,8 +86,8 @@ class CampusController extends AbstractController
         ]);
     }
 
-    #[Route('/modify/{id}', name: 'modify')]
-    public function modify(int $id, CampusRepository $campusRepository, Request $request, EntityManagerInterface $em): Response
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(int $id, CampusRepository $campusRepository, Request $request, EntityManagerInterface $em): Response
     {
         $campus = $campusRepository->find($id);
 
@@ -109,7 +109,7 @@ class CampusController extends AbstractController
             return $this->redirectToRoute('admin_campus_list');
         }
 
-        return $this->render('campus/modify.html.twig', [
+        return $this->render('campus/edit.html.twig', [
             'campusForm' => $campusForm
         ]);
     }

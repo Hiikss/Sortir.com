@@ -86,8 +86,8 @@ class CityController extends AbstractController
         ]);
     }
 
-    #[Route('/modify/{id}', name: 'modify')]
-    public function modify(int $id, CityRepository $cityRepository, Request $request, EntityManagerInterface $em): Response
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(int $id, CityRepository $cityRepository, Request $request, EntityManagerInterface $em): Response
     {
         $city = $cityRepository->find($id);
 
@@ -109,7 +109,7 @@ class CityController extends AbstractController
             return $this->redirectToRoute('admin_city_list');
         }
 
-        return $this->render('city/modify.html.twig', [
+        return $this->render('city/edit.html.twig', [
             'cityForm' => $cityForm
         ]);
     }
