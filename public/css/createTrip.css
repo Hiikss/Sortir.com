@@ -31,15 +31,19 @@ justify-content: center;
 }
 
 #create-trip-button {
-display: inline-grid;
-justify-content: center;
-align-items: center;
-width: 200px;
-height: 60px;
-background-color: var(--color4);
-border-radius: 50px;
-font-weight: 600;
-margin-top: 20px;
-color: white;
-text-decoration: none;
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+    background-color: var(--color4);
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.btn plus {
+  margin-top: 20px;
 }

@@ -29,17 +29,22 @@ class TripController extends AbstractController
 
         $states = $stateRepository->findAll();
 
+        $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('enregistrer')->isClicked()) {
-                $trip->setState($states[1]);
+                $trip->setState($states[0]);
             } else if ($form->get('publier')->isClicked()) {
-                $trip->setState($states[2]);
+                $trip->setState($states[1]);
             }
 
             $user = $this->getUser();
             $trip->setOrganizer($user);
+            $place = $form->get('place')->getData();
+            $trip->setPlace($place);
 
             $entityManager->persist($trip);
+            $entityManager->persist($place);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_main');
