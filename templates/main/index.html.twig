@@ -91,7 +91,7 @@
 					{{ trip.organizer.lastname|first }}.</td>
 				<td class="mobile-hide">
 					{% if app.user == trip.organizer and trip.state.id == 1 %}
-						<a href="">Modifier</a>
+						<a href="{{ path('trip_edit', {'id': trip.id}) }}">Modifier</a>
 					{% else %}
 						<a href="{{ path('trip_details', {'id': trip.id}) }}">Afficher</a>
 					{% endif %}
@@ -102,7 +102,7 @@
 						{% elseif trip.state.id == 2 and app.user != trip.organizer and app.user not in trip.registeredUsers %}
 							<a href="{{ path('trip_register', {'id': trip.id}) }}">S'inscrire</a>
 						{% elseif trip.state.id == 1 and app.user == trip.organizer %}
-							<a href="">Publier</a>
+							<a href="{{ path('trip_publish', {'id': trip.id}) }}">Publier</a>
 						{% endif %}
 					{% endif %}
 					{% if (trip.state.id == 2 or trip.state.id == 3) and app.user == trip.organizer or 'ROLE_ADMIN' in app.user.roles and app.user != trip.organizer %}
@@ -115,19 +115,21 @@
 				<td class="mobile-show">{{ trip.place.city.name|upper }}</td>
 			</tr>
 			{% endfor %}
-			{% for j in (0..7 - trips|length) %}
-			<tr>
-				<td></td>
-				<td></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-show"></td>
-			</tr>
-			{% endfor %}
+			{% if trips|length < 8 %}
+				{% for j in (0..7 - trips|length) %}
+				<tr>
+					<td></td>
+					<td></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-show"></td>
+				</tr>
+				{% endfor %}
+			{% endif %}
 		</tbody>
 	</table>
 </section>

@@ -47,19 +47,21 @@
                         <td>{{ city.name }}</td>
                         <td>{{ city.postalCode }}</td>
                         <td>
-                            <a href="">Modifier</a>
+                            <a href="{{ path('admin_city_edit', {'id': city.id}) }}">Modifier</a>
                             <span> - </span>
                             <a href="{{ path('admin_city_delete', {'id': city.id}) }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
-                {% for j in (0..5 - cities|length) %}
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {% endfor %}
+                {% if cities|length < 6 %}
+                    {% for j in (0..5 - cities|length) %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>

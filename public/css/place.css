@@ -34,18 +34,14 @@ h2 {
     margin-left: -30px;
 }
 
-#filters button, .under-table button {
+#filters button {
+    margin-left: 20px;
     outline: none;
     border: none;
     cursor: pointer;
 }
 
-#filters button {
-    margin-left: 20px;
-}
-
-
-#filters button, #add-user, .under-table button {
+#filters button, #add-user {
     width: 200px;
     height: 60px;
     background-color: var(--color4);
@@ -54,7 +50,7 @@ h2 {
     font-weight: 600;
 }
 
-#filters button:hover, #add-user:hover, .under-table button:hover {
+#filters button:hover, #add-user:hover {
     background-color: var(--color3);
 }
 
@@ -99,7 +95,7 @@ table {
 
 tbody {
     display: block;
-    overflow-y: overlay;
+    overflow-y: scroll;
     overflow-x: hidden;
     height: 294px;
 }
@@ -114,9 +110,10 @@ tbody tr:nth-child(even) td {
     background-color: var(--color2);
 }
 
-td input[type=text], td select {
+td input[type=text] {
     max-width: fit-content;
     width: 100%;
+    padding-right: 0;
 }
 
 .add-btn {
@@ -129,29 +126,8 @@ td input[type=text], td select {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-decoration: none;
-}
-
-.under-table {
     margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    max-width: 850px;
-    flex-wrap: wrap;
-}
-
-.under-table form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-@media all and (max-width: 632px) {
-    .under-table {
-        justify-content: center;
-        gap: 20px;
-    }
+    text-decoration: none;
 }
 
 @media all and (max-width: 575px) {

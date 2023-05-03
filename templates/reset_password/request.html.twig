@@ -2,7 +2,7 @@
 
 {% block title %}Mot de passe oublié{% endblock %}
 
-{% block extrastyles %}<link rel="stylesheet" href="{{ asset('css/authForm.css') }}">{% endblock %}
+{% block extrastyles %}<link rel="stylesheet" href="{{ asset('css/form.css') }}">{% endblock %}
 
 {% block body %}
 <section>
@@ -10,7 +10,7 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <div class="reset-form-box">
+    <div class="form-box fixed-width">
         <div class="form">
             <h2>Réinitialisation du mot de passe</h2>
             {{ form_start(requestForm) }}

@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion lieux{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/table.css') }}"> {% endblock %}
+
+{% block body %}
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <h2>Gérer les lieux</h2>
+    {% for message in app.flashes('success') %}
+        <div class="flash">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <section>
+        <div id="filters">
+            <h3>Filtrer les lieux</h3>
+            {{ form_start(searchForm) }}
+            {{ form_label(searchForm.searchzone) }}
+            <div>
+                <ion-icon name="search-outline"></ion-icon>
+                {{ form_widget(searchForm.searchzone) }}
+            </div>
+            <button>Rechercher</button>
+            {{ form_end(searchForm) }}
+        </div>
+        <div id="table">
+            <table>
+                <thead>
+                <tr>
+                    <th>Ville</th>
+                    <th>Lieu</th>
+                    <th>Rue</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {{ form_start(placeForm) }}
+                    <td>{{ form_widget(placeForm.city) }}</td>
+                    <td>{{ form_widget(placeForm.name) }}</td>
+                    <td>{{ form_widget(placeForm.street) }}</td>
+                    <td>{{ form_widget(placeForm.latitude) }}</td>
+                    <td>{{ form_widget(placeForm.longitude) }}</td>
+                    <td><button class="add-btn">Ajouter</button></td>
+                    {{ form_end(placeForm) }}
+                </tr>
+                {% for place in places %}
+                    <tr>
+                        <td>{{ place.city.name }}</td>
+                        <td>{{ place.name }}</td>
+                        <td>{{ place.street }}</td>
+                        <td>{{ place.latitude}}</td>
+                        <td>{{ place.longitude}}</td>
+                        <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('place_edit', {'id': place.id}) }}">Modifier</a>
+                            <span> - </span>
+                            <a href="{{ path('place_delete', {'id': place.id}) }}">Supprimer</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% if places|length < 6 %}
+                    {% for j in (0..5 - places|length) %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
+
