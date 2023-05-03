@@ -34,14 +34,18 @@ h2 {
     margin-left: -30px;
 }
 
-#filters button {
-    margin-left: 20px;
+#filters button, .under-table button {
     outline: none;
     border: none;
     cursor: pointer;
 }
 
-#filters button, #add-user {
+#filters button {
+    margin-left: 20px;
+}
+
+
+#filters button, #add-user, .under-table button {
     width: 200px;
     height: 60px;
     background-color: var(--color4);
@@ -50,7 +54,7 @@ h2 {
     font-weight: 600;
 }
 
-#filters button:hover, #add-user:hover {
+#filters button:hover, #add-user:hover, .under-table button:hover {
     background-color: var(--color3);
 }
 
@@ -126,8 +130,29 @@ td input[type=text] {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
     text-decoration: none;
+}
+
+.under-table {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 850px;
+    flex-wrap: wrap;
+}
+
+.under-table form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+@media all and (max-width: 632px) {
+    .under-table {
+        justify-content: center;
+        gap: 20px;
+    }
 }
 
 @media all and (max-width: 575px) {
