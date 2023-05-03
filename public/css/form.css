@@ -21,7 +21,7 @@ section {
     visibility: hidden;
 }
 
-.register-form-box,
+.column-2-form-box,
 .login-form-box,
 .form-box {
     position: relative;
@@ -119,7 +119,11 @@ input:-webkit-autofill {
     filter: invert(100%);
 }
 
-.special-field div {
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.special-field {
     width: 310px;
     color: white;
     font-weight: 600;
@@ -201,6 +205,10 @@ button:hover, .cancel:hover {
     flex-wrap: wrap-reverse;
 }
 
+.line-two {
+    margin-top: 30px;
+}
+
 @media all and (min-width: 768px) {
     .row {
         justify-content: space-between;
@@ -209,7 +217,7 @@ button:hover, .cancel:hover {
 
 @media all and (max-width: 767px) {
     .row-button {
-        gap: 40px;
+        gap: 30px;
     }
     
     /*button, .cancel {
@@ -218,18 +226,18 @@ button:hover, .cancel:hover {
 }
 
 @media all and (min-width: 576px) and (max-width: 767px) {
-    .register-form-box {
+    .column-2-form-box {
         width: 420px;
     }
 }
 
 @media all and (max-width: 575px) {
-    .register-form-box
+    .column-2-form-box
      {
         width: 300px;
     }
 
-    .inputbox, .special-field div {
+    .inputbox, .special-field {
         width: 250px;
     }
 
