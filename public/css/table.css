@@ -114,10 +114,9 @@ tbody tr:nth-child(even) td {
     background-color: var(--color2);
 }
 
-td input[type=text] {
+td input[type=text], td select {
     max-width: fit-content;
     width: 100%;
-    padding-right: 0;
 }
 
 .add-btn {
