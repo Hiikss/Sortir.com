@@ -37,14 +37,14 @@ class TripFormType extends AbstractType
             ->add('maxRegistrationsNb', IntegerType::class, [
                 'label' => 'Nombre de places : ',
                  'attr' => [
-                    'min' => 0,
+                    'min' => 1,
                 ],
             ])
 
             ->add('duration', IntegerType::class, [
                 'label' => 'Durée (en minutes) : ',
                 'attr' => [
-                    'min' => 0, //durée minimum
+                    'min' => 1, //durée minimum
                     'step' => 1, //par pas de 1
                 ],
             ])
