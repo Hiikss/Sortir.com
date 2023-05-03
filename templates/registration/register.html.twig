@@ -2,7 +2,7 @@
 
 {% block title %}Ajouter un utilisateur{% endblock %}
 {% block extrastyles %}
-    <link rel="stylesheet" href="{{ asset('css/authForm.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 {% endblock %}
 {% block body %}
 <section>  
@@ -34,7 +34,7 @@
             {% endif %}
         </div>
     {% endif %}
-        <div class="register-form-box">
+        <div class="column-2-form-box">
             <div class="form">
                 <h2>Ajouter un utilisateur</h2>
                 {{ form_start(registrationForm) }}
@@ -103,19 +103,19 @@
                         {{ form_label(registrationForm.password.second) }}
                     </div>
                 </div>
-                <div class="row special-field">
+                <div class="row">
                     {% if form_errors(registrationForm.campus) %}
-                        <div class=""> 
+                        <div class="special-field"> 
                     {% else %}
-                        <div class="">
+                        <div class="special-field">
                     {% endif %}
                         {{ form_label(registrationForm.campus) }}
                         {{ form_widget(registrationForm.campus) }}
                     </div>
                     {% if form_errors(registrationForm.active) %}
-                        <div class="cb"> 
+                        <div class="special-field cb"> 
                     {% else %}
-                        <div class="cb">
+                        <div class="special-field cb">
                     {% endif %}
                         {{ form_widget(registrationForm.active) }}
                         {{ form_label(registrationForm.active) }}

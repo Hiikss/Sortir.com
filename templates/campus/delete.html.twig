@@ -9,6 +9,7 @@
 <section>
     <div class="info">Voulez vous vraiment supprimer le campus {{ campus.name }} ?</div>
     <div class="info">Attention, cette action est irréversible !</div>
+    <div class="info">Cela supprimera également les utilisateurs et les sorties liés.</div>
     {{ form_start(form) }}
         <a class="cancel" href="{{ path('admin_campus_list') }}">Annuler</a>
         <button>Valider</button>

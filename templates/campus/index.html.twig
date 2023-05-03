@@ -44,18 +44,20 @@
                     <tr>
                         <td>{{ c.name }}</td>
                         <td>
-                            <a href="">Modifier</a>
+                            <a href="{{ path('admin_campus_edit', {'id': c.id}) }}">Modifier</a>
                             <span> - </span>
                             <a href="{{ path('admin_campus_delete', {'id': c.id}) }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
-                {% for j in (0..5 - campus|length) %}
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {% endfor %}
+                {% if campus|length < 6 %}
+                    {% for j in (0..5 - campus|length) %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification campus{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/form.css') }}"> {% endblock %}
+
+{% block body %}
+<section>
+    {% if not campusForm.vars.valid %}
+        <div class="invalid">
+            {% if form_errors(campusForm.name) %}
+                <div>Le nom est incorrect</div>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="form-box">
+        <div class="form">
+        <h2>Modifier un campus</h2>
+            {{ form_start(campusForm) }}
+            <div class="row">
+                <div class="inputbox">
+                    {{ form_widget(campusForm.name) }}
+                    {{ form_label(campusForm.name) }}
+                </div>
+            </div>
+            <div class="form-box-row-button">
+                <a class="cancel" href="{{ path('admin_campus_list') }}">Annuler</a>
+                <button>Valider</button>
+            </div>
+            {{ form_end(campusForm) }}
+        </div>
+    </div>
+</section>
+{% endblock %}

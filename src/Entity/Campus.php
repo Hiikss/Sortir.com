@@ -18,10 +18,10 @@ class Campus
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Trip::class)]
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Trip::class, orphanRemoval: true)]
     private Collection $trips;
 
-    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: User::class, orphanRemoval: true)]
     private Collection $users;
 
     public function __construct()

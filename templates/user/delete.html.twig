@@ -9,6 +9,7 @@
 <section>
     <div class="info">Voulez vous vraiment supprimer l'utilisateur {{ user.firstname }} {{ user.lastname|upper }} ?</div>
     <div class="info">Attention, cette action est irréversible !</div>
+    <div class="info">Cela supprimera également les sorties organisées par cet utilisateur.</div>
     {{ form_start(form) }}
         <a class="cancel" href="{{ path('admin_user_list') }}">Annuler</a>
         <button>Valider</button>

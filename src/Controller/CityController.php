@@ -85,4 +85,32 @@ class CityController extends AbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(int $id, CityRepository $cityRepository, Request $request, EntityManagerInterface $em): Response
+    {
+        $city = $cityRepository->find($id);
+
+        $cityForm = $this->createForm(CityType::class, $city);
+
+        $cityForm->handleRequest($request);
+
+        if ($cityForm->isSubmitted() && $cityForm->isValid()) {
+            $city= $cityForm->getData();
+
+            $em->persist($city);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'La ville a bien été modifiée !'
+            );
+
+            return $this->redirectToRoute('admin_city_list');
+        }
+
+        return $this->render('city/edit.html.twig', [
+            'cityForm' => $cityForm
+        ]);
+    }
 }

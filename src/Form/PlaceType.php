@@ -21,12 +21,29 @@ class PlaceType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('name', TextType::class, [
-                'label' => 'Lieu : ',
-                ])
-            ->add('street',TextType::class,['label' => 'Rue : '])
-
-            ->add('latitude', TextType::class, ['label' => 'Latitude : '])
-            ->add('longitude', TextType::class, ['label' => 'Longitude : '])
+                'label' => 'Lieu',
+                'attr' => [
+                    'placeholder' => ' ',
+                 ]
+            ])
+            ->add('street',TextType::class, [
+                'label' => 'Rue',
+                'attr' => [
+                    'placeholder' => ' ',
+                 ]
+            ])
+            ->add('latitude', TextType::class, [
+                'label' => 'Latitude',
+                'attr' => [
+                    'placeholder' => ' ',
+                 ]
+            ])
+            ->add('longitude', TextType::class, [
+                'label' => 'Longitude',
+                'attr' => [
+                    'placeholder' => ' ',
+                 ]
+            ])
 
         ;
     }

@@ -21,14 +21,14 @@ class Trip
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\GreaterThanOrEqual('today')]
+    #[Assert\GreaterThanOrEqual('today +1 day')]
     private ?\DateTimeInterface $startDateTime = null;
 
     #[ORM\Column]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\GreaterThanOrEqual('today')]
+    #[Assert\GreaterThanOrEqual('today +1 day')]
     #[Assert\LessThanOrEqual(propertyPath: 'startDateTime')]
     private ?\DateTimeInterface $limitEntryDate = null;
 

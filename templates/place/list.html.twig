@@ -57,20 +57,25 @@
                         <td>{{ place.longitude}}</td>
                         <td>
                             {% if is_granted('ROLE_ADMIN') %}
-                            <a href="">Modifier</a>
+                            <a href="{{ path('place_edit', {'id': place.id}) }}">Modifier</a>
                             <span> - </span>
                             <a href="{{ path('place_delete', {'id': place.id}) }}">Supprimer</a>
                             {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
-                {% for j in (0..5 - places|length) %}
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                {% endfor %}
+                {% if places|length < 6 %}
+                    {% for j in (0..5 - places|length) %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>

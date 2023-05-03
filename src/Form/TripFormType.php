@@ -23,9 +23,15 @@ class TripFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ['label' => 'Nom de la sortie : '])
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la sortie',
+                'attr' => [
+                    'placeholder' => ' ',
+                    'autofocus' => true
+                ]
+                ])
             ->add('startDateTime', DateTimeType::class, [
-                'label' => 'Date et heure de la sortie : ',
+                'label' => 'Date et heure de la sortie',
                 'widget' => 'single_text',
                 ])
 
@@ -35,21 +41,26 @@ class TripFormType extends AbstractType
                 ])
 
             ->add('maxRegistrationsNb', IntegerType::class, [
-                'label' => 'Nombre de places : ',
+                'label' => 'Nombre de places',
                  'attr' => [
-                    'min' => 0,
+                    'min' => 1,
+                    'placeholder' => ' '
                 ],
             ])
 
             ->add('duration', IntegerType::class, [
-                'label' => 'Durée (en minutes) : ',
+                'label' => 'Durée (en minutes)',
                 'attr' => [
-                    'min' => 0, //durée minimum
+                    'min' => 1, //durée minimum
                     'step' => 1, //par pas de 1
+                    'placeholder' => ' '
                 ],
             ])
-            ->add('tripInfos', TextareaType::class, [
-                'label' => 'Description et infos : ',
+            ->add('tripInfos', TextType::class, [
+                'label' => 'Description et infos',
+                'attr' => [
+                    'placeholder' => ' '
+                ]
             ])
 
 
@@ -61,11 +72,14 @@ class TripFormType extends AbstractType
 
             ->add('place', PlaceType::class, [
                 'label' => false,
-                'mapped' => false,
             ])
 
-            ->add('enregistrer', SubmitType::class)
-            ->add('publier', SubmitType::class)
+            ->add('save', SubmitType::class, [
+                'label' => 'Sauvegarder'
+            ])
+            ->add('publish', SubmitType::class, [
+                'label' => 'Publier'
+            ])
         ;
     }
 
