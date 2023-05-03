@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suppression utilisateur{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/deleteEntity.css') }}"> {% endblock %}
+
+{% block body %}
+<h2>Supprimer un utilisateur</h2>
+<section>
+    <div class="info">Voulez vous vraiment supprimer l'utilisateur {{ user.firstname }} {{ user.lastname|upper }} ?</div>
+    <div class="info">Attention, cette action est irréversible !</div>
+    {{ form_start(form) }}
+        <a class="cancel" href="{{ path('admin_user_list') }}">Annuler</a>
+        <button>Valider</button>
+    {{ form_end(form) }}
+</section>
+{% endblock %}

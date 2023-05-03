@@ -43,11 +43,11 @@ class Trip
     private ?State $state = null;
 
     #[ORM\ManyToOne(inversedBy: 'organizedTrips')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private ?User $organizer = null;
 
     #[ORM\ManyToOne(inversedBy: 'trips')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private ?Place $place = null;
 
     #[ORM\ManyToOne(inversedBy: 'trips')]

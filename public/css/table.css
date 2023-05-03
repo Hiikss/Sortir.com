@@ -6,6 +6,13 @@ h2 {
     text-align: center;
 }
 
+.flash {
+    text-align: center;
+    font-size: 1.2rem;
+    color: green;
+    font-weight: 500;
+}
+
 #filters {
     margin-top: 40px;
 }
@@ -57,7 +64,7 @@ table a {
     text-decoration: none;
 }
 
-table a:hover {
+table a:hover, .add-btn:hover {
     color: var(--color4);
 }
 
@@ -71,7 +78,7 @@ td {
     height: 40px;
 }
 
-th:not(:last-child), td:not(:last-child) {
+th:not(:last-child), td:not(:last-of-type) {
     border-right: 2px solid;
     word-wrap: break-word;
 }
@@ -90,7 +97,7 @@ tbody {
     display: block;
     overflow-y: overlay;
     overflow-x: hidden;
-    height: 326px;
+    height: 294px;
 }
 
 thead, tbody tr {
@@ -101,6 +108,18 @@ thead, tbody tr {
 
 tbody tr:nth-child(even) td {
     background-color: var(--color2);
+}
+
+td input[type=text] {
+    max-width: fit-content;
+    width: 100%;
+    padding-right: 0;
+}
+
+.add-btn {
+    color: var(--color5);
+    border: none;
+    cursor: pointer;
 }
 
 #add-user {

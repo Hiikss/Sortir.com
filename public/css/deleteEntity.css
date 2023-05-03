@@ -1,0 +1,52 @@
+h2 {
+    text-align: center;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.info {
+    color: crimson;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.info:first-of-type {
+    margin-top: 40px;
+}
+
+form {
+    display: flex;
+    gap: 30px;
+    margin-top: 60px;
+}
+
+button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+button, .cancel {
+    width: 200px;
+    height: 60px;
+    background-color: var(--color4);
+    color: white;
+    border-radius: 40px;
+    font-weight: 600;
+}
+
+.cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+button:hover, .cancel:hover {
+    background-color: var(--color3);
+}
