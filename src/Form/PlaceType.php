@@ -24,12 +24,7 @@ class PlaceType extends AbstractType
                 'label' => 'Lieu : ',
                 ])
             ->add('street',TextType::class,['label' => 'Rue : '])
-            ->add('postalCode', EntityType::class, [
-                'label' => 'Code postal : ',
-                'class' => City::class,
-                'choice_label' => 'postalCode',
-                'mapped' => false,
-            ])
+
             ->add('latitude', TextType::class, ['label' => 'Latitude : '])
             ->add('longitude', TextType::class, ['label' => 'Longitude : '])
 
