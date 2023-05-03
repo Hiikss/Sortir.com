@@ -60,25 +60,30 @@ class PlaceController extends AbstractController
     }
 
     #[Route('/place/edit/{id}', name: 'place_edit')]
-    public function edit(Request $request, EntityManagerInterface $entityManager, Place $place): Response
+    public function edit(int $id, Request $request, EntityManagerInterface $em, PlaceRepository $placeRepository): Response
     {
+        $place = $placeRepository->find($id);
+
         $placeForm = $this->createForm(PlaceType::class, $place);
 
         $placeForm->handleRequest($request);
 
         if ($placeForm->isSubmitted() && $placeForm->isValid()) {
-            $entityManager->flush();
+            $place= $placeForm->getData();
+
+            $em->persist($place);
+            $em->flush();
 
             $this->addFlash(
                 'success',
-                'Place updated successfully!'
+                'Le lieu a bien été modifié !'
             );
 
             return $this->redirectToRoute('place_list');
         }
 
         return $this->render('place/edit.html.twig', [
-            'placeForm' => $placeForm,
+            'placeForm' => $placeForm
         ]);
     }
 

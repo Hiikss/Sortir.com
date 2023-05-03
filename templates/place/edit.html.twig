@@ -1,19 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification de lieu{{ place.name }}{% endblock %}
+{% block title %}Modification lieu{% endblock %}
+
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/form.css') }}"> {% endblock %}
 
 {% block body %}
-    <h1>Modification de {{ place.name }}</h1>
-
-    {{ form_start(placeForm) }}
-
-    {{ form_row(placeForm.name, {'label': 'Nom'}) }}
-    {{ form_row(placeForm.address, {'label': 'Adresse'}) }}
-    {{ form_row(placeForm.city, {'label': 'Ville'}) }}
-
-    <button type="submit" class="btn btn-success">Modifier</button>
-    <a href="{{ path('place_list') }}" class="btn btn-secondary">Retour à la liste</a>
-
-    {{ form_end(placeForm) }}
+<section>
+    {% if not placeForm.vars.valid %}
+        <div class="invalid">
+            {% if form_errors(placeForm.name) %}
+                <div>Le nom est incorrect</div>
+            {% endif %}
+            {% if form_errors(placeForm.street) %}
+                <div>La rue est incorrecte</div>
+            {% endif %}
+            {% if form_errors(placeForm.city) %}
+                <div>La ville est incorrecte</div>
+            {% endif %}
+            {% if form_errors(placeForm.latitude) %}
+                <div>La latitude est incorrecte</div>
+            {% endif %}
+            {% if form_errors(placeForm.longitude) %}
+                <div>La latitude est incorrecte</div>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="form-box">
+        <div class="form">
+        <h2>Modifier un lieu</h2>
+            {{ form_start(placeForm) }}
+            <div class="row">
+                <div class="inputbox">
+                    {{ form_widget(placeForm.name) }}
+                    {{ form_label(placeForm.name) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="inputbox">
+                    {{ form_widget(placeForm.street) }}
+                    {{ form_label(placeForm.street) }}
+                </div>
+            </div>
+            <div class="row special-field">
+                <div>
+                    {{ form_label(placeForm.city) }}
+                    {{ form_widget(placeForm.city) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="inputbox">
+                    {{ form_widget(placeForm.latitude) }}
+                    {{ form_label(placeForm.latitude) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="inputbox">
+                    {{ form_widget(placeForm.longitude) }}
+                    {{ form_label(placeForm.longitude) }}
+                </div>
+            </div>
+            <div class="form-box-row-button">
+                <a class="cancel" href="{{ path('place_list') }}">Annuler</a>
+                <button>Valider</button>
+            </div>
+            {{ form_end(placeForm) }}
+        </div>
+    </div>
+</section>
 {% endblock %}
 

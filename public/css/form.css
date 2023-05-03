@@ -154,6 +154,7 @@ input:-webkit-autofill {
 }
 
 select {
+    width: 190px;
     border-radius: 20px;
     color: var(--color5);
     height: 30px;

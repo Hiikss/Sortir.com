@@ -57,7 +57,7 @@
                         <td>{{ place.longitude}}</td>
                         <td>
                             {% if is_granted('ROLE_ADMIN') %}
-                            <a href="">Modifier</a>
+                            <a href="{{ path('place_edit', {'id': place.id}) }}">Modifier</a>
                             <span> - </span>
                             <a href="{{ path('place_delete', {'id': place.id}) }}">Supprimer</a>
                             {% endif %}
