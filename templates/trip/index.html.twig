@@ -88,7 +88,7 @@
 					{% endif %}
 				</td>
 				<td class="mobile-hide"><a href="{{ path('profil_show', {'id': trip.organizer.id}) }}">{{ trip.organizer.firstname }}
-					{{ trip.organizer.lastname|first }}.</td>
+					{{ trip.organizer.lastname|first }}.</a></td>
 				<td class="mobile-hide">
 					{% if app.user == trip.organizer and trip.state.label == 'En création' %}
 						<a href="{{ path('trip_edit', {'id': trip.id}) }}">Modifier</a>

@@ -79,8 +79,8 @@
             <tbody>
                 {% for user in trip.registeredUsers %}
                 <tr>
-                    <td>{{ user.pseudo }}</td>
-                    <td>{{ user.firstname }} {{ user.lastname|upper }}</td>
+                    <td><a href="{{ path('profil_show', {'id': user.id}) }}">{{ user.pseudo }}</a></td>
+                    <td><a href="{{ path('profil_show', {'id': user.id}) }}">{{ user.firstname }} {{ user.lastname|upper }}</a></td>
                 </tr>
                 {% endfor %}
                 {% if trip.registeredUsers|length < 5 %}
