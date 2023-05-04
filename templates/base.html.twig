@@ -30,10 +30,13 @@
                                     <a href="{{ path('admin_campus_list') }}" title="Gestion des campus">Campus</a>
                                 </div>
                             </div>
-                            
                         {% endif %}
                         <a class="nav-item" href="{{ path('app_main') }}" title="Retour à l'accueil">Accueil</a>
-                        <a class="nav-item" href="#" title="Voir mon profil">Profil</a>
+
+                        <a class="nav-item" href="{{ path('app_profil') }}" title="Voir mon profil">Profil</a>
+
+                        <a class="nav-item" href="{{ path('place_list') }}" title="Voir les lieux">Lieux</a>
+
                         <a class="nav-item" href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
                     </nav>
                 {% endif %}

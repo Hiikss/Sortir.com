@@ -87,7 +87,7 @@
 					X
 					{% endif %}
 				</td>
-				<td class="mobile-hide">{{ trip.organizer.firstname }}
+				<td class="mobile-hide"><a href="{{ path('profil_show', {'id': trip.organizer.id}) }}">{{ trip.organizer.firstname }}
 					{{ trip.organizer.lastname|first }}.</td>
 				<td class="mobile-hide">
 					{% if app.user == trip.organizer and trip.state.id == 1 %}
@@ -105,7 +105,7 @@
 							<a href="{{ path('trip_publish', {'id': trip.id}) }}">Publier</a>
 						{% endif %}
 					{% endif %}
-					{% if (trip.state.id == 2 or trip.state.id == 3) and app.user == trip.organizer or 'ROLE_ADMIN' in app.user.roles and app.user != trip.organizer %}
+					{% if (trip.state.id == 2 or trip.state.id == 3) and app.user == trip.organizer or 'ROLE_ADMIN' in app.user.roles and app.user != trip.organizer and (trip.state.id == 2 or trip.state.id == 3) %}
 						{% if 'ROLE_ADMIN' in app.user.roles and app.user != trip.organizer %}
 							<span> - </span>
 						{% endif %}

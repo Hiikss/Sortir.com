@@ -40,9 +40,18 @@ section:last-of-type {
     align-items: center;
 }
 
-section:last-of-type div {
-    font-weight: 600;
-    font-size: 1.2rem;
+section:last-of-type .row {
+    font-size: 1.1rem;
+    gap: 30px;
+    max-width: 800px;
+}
+
+section:last-of-type .row div:first-child {
+    min-width: 55px;
+}
+
+.cancel {
+    color: crimson;
 }
 
 table {

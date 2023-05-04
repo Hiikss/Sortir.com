@@ -46,7 +46,7 @@ class UserController extends AbstractController
                 $user->setFirstname($row['firstname']);
                 $user->setTelephone($row['telephone']);
                 $user->setActive($row['active']);
-                $user->setCampus($campusRespository->find($row['campus_id']));
+                $user->setCampus($campusRespository->findOneBy(['name' => $row['campus_name']]));
 
                 $em->persist($user);
                 $em->flush();

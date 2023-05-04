@@ -2,22 +2,85 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use APP\Entity\Trip;
 use App\Form\TripFormType;
 use App\Repository\StateRepository;
 use App\Repository\TripRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/trip', name: 'trip_')]
 class TripController extends AbstractController
 {
+    #[Route('/', name: 'app_main')]
+    public function index(TripRepository $tripRepository, Request $request): Response
+    {
+        $homeForm = $this->createFormBuilder()
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'name',
+                'data' => $this->getUser()->getCampus()
+            ])
+            ->add('searchzone', TextType::class, [
+                'required' => false,
+                'label' => 'Le nom de la sortie contient',
+                'attr' => [
+                    'placeholder' => 'Rechercher'
+                ]
+            ])
+            ->add('startDate', DateType::class, [
+                'widget' => 'single_text',
+                'required' => false
+            ])
+            ->add('endDate', DateType::class, [
+                'widget' => 'single_text',
+                'required' => false
+            ])
+            ->add('organizerTrips', CheckboxType::class, [
+                'label' => 'Sorties dont je suis l\'organisateur/trice',
+                'required' => false,
+                'data' => true
+            ])
+            ->add('registeredTrips', CheckboxType::class, [
+                'label' => 'Sorties auxquelles je suis inscrit/e',
+                'required' => false,
+                'data' => true
+            ])
+            ->add('notRegisteredTrips', CheckboxType::class, [
+                'label' => 'Sorties auxquelles je ne suis pas inscrit/e',
+                'required' => false,
+                'data' => true
+            ])
+            ->add('pastTrips', CheckboxType::class, [
+                'label' => 'Sorties passées',
+                'required' => false
+            ])->getForm();
 
-    #[Route('/create', name: 'create')]
+        $homeForm->handleRequest($request);
+
+        if ($homeForm->isSubmitted() && $homeForm->isValid()) {
+            $trips = $tripRepository->findByFilters($this->getUser(), $homeForm->getData());
+        } else {
+            $trips = $tripRepository->findByFilters($this->getUser(), ['campus' => $this->getUser()->getCampus(), 'searchzone' => null, 'startDate' => null, 'endDate' => null,
+             'organizerTrips' => true, 'registeredTrips' => true, 'notRegisteredTrips' => true, 'pastTrips' => false]);
+        }
+
+        return $this->render('trip/index.html.twig', [
+            'homeForm' => $homeForm->createView(),
+            'trips' => $trips
+        ]);
+    }
+
+    #[Route('/trip/create', name: 'trip_create')]
     public function create(Request $request, EntityManagerInterface $entityManager, StateRepository $stateRepository): Response
     {
         $trip = new Trip();
@@ -52,7 +115,7 @@ class TripController extends AbstractController
     }
 
 
-    #[Route('/cancel/{id}', name: 'cancel')]
+    #[Route('/trip/cancel/{id}', name: 'trip_cancel')]
     public function cancel(Request $request, int $id, TripRepository $tripRepository, StateRepository $stateRepository, EntityManagerInterface $entityManager): Response {
 
         $trip = $tripRepository->find($id);
@@ -60,7 +123,7 @@ class TripController extends AbstractController
         $states = $stateRepository->findAll();
 
         if($trip && ($this->getUser()==$trip->getOrganizer() || $this->isGranted('ROLE_ADMIN')) && ($trip->getState()==$states[1] || $trip->getState()==$states[2])
-            && $trip->getStartDateTime()>new DateTime('now') /*&& !is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "mobile"))*/) {
+            && $trip->getStartDateTime()>new DateTime('now')) {
 
             $tripForm = $this->createFormBuilder()
             ->add('reason', TextareaType::class, [
@@ -89,7 +152,7 @@ class TripController extends AbstractController
         return $this->redirectToRoute('app_main');
     }
 
-    #[Route('/register/{id}', name: 'register')]
+    #[Route('/trip/register/{id}', name: 'trip_register')]
     public function register(int $id, TripRepository $tripRepository, StateRepository $stateRepository, EntityManagerInterface $entityManager): Response {
         
         $trip = $tripRepository->find($id);
@@ -113,7 +176,7 @@ class TripController extends AbstractController
         return $this->redirectToRoute('app_main');
     }
 
-    #[Route('/unregister/{id}', name: 'unregister')]
+    #[Route('/trip/unregister/{id}', name: 'trip_unregister')]
     public function unregister(int $id, TripRepository $tripRepository, StateRepository $stateRepository, EntityManagerInterface $entityManager): Response {
         
         $trip = $tripRepository->find($id);
@@ -137,7 +200,7 @@ class TripController extends AbstractController
         return $this->redirectToRoute('app_main');
     }
 
-    #[Route('/details/{id}', name: 'details')]
+    #[Route('/trip/details/{id}', name: 'trip_details')]
     public function details(int $id, TripRepository $tripRepository): Response {
         
         $trip = $tripRepository->find($id);
@@ -151,7 +214,7 @@ class TripController extends AbstractController
         return $this->redirectToRoute('app_main');
     }
 
-    #[Route('/publish/{id}', name: 'publish')]
+    #[Route('/trip/publish/{id}', name: 'trip_publish')]
     public function publish(int $id, TripRepository $tripRepository, StateRepository $stateRepository, EntityManagerInterface $entityManager): Response {
         
         $trip = $tripRepository->find($id);
@@ -170,8 +233,8 @@ class TripController extends AbstractController
         return $this->redirectToRoute('app_main');
     }
 
-    #[Route('/edit/{id}', name: 'edit')]
-    public function edit(int $id, TripRepository $tripRepository, StateRepository $stateRepository, Request $request): Response {
+    #[Route('/trip/edit/{id}', name: 'trip_edit')]
+    public function edit(int $id, TripRepository $tripRepository, StateRepository $stateRepository, Request $request, EntityManagerInterface $em): Response {
         
         $trip = $tripRepository->find($id);
 
@@ -185,13 +248,20 @@ class TripController extends AbstractController
             $tripForm->handleRequest($request);
 
             if ($tripForm->isSubmitted() && $tripForm->isValid()) {
-                if ($tripForm->get('save')->isClicked()) {
-                    //$trip->setState($states[0]);
-                } else if ($tripForm->get('publish')->isClicked()) {
-                    //$trip->setState($states[1]);
-                } else if($tripForm->get('delete')->isClicked()) {
+                if ($tripForm->get('save')->isClicked() || $tripForm->get('publish')->isClicked()) {
+                    $place = $tripForm->get('place')->getData();
+
+                    if($tripForm->get('publish')->isClicked()) {
+                        $trip->setState($states[1]);
+                    }
+                    $em->persist($trip);
+                    $em->persist($place);
+                    $em->flush();
+                } 
+                else if($tripForm->get('delete')->isClicked()) {
                     $tripRepository->remove($trip, true);
                 }
+
                 return $this->redirectToRoute('app_main');
             }
             
@@ -203,7 +273,7 @@ class TripController extends AbstractController
 
     }
 
-    #[Route('/delete/{id}', name: 'delete')]
+    #[Route('/trip/delete/{id}', name: 'trip_delete')]
     public function delete(int $id, TripRepository $tripRepository, StateRepository $stateRepository): Response
     {
         $trip = $tripRepository->find($id);

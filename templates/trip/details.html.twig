@@ -61,28 +61,38 @@
     </div>
 </section>
 <section>
-    <div>Liste des participants inscrits :</div>
-    <table>
-		<thead>
-			<tr>
-				<th>Pseudo</th>
-				<th>Nom</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for user in trip.registeredUsers %}
-			<tr>
-				<td>{{ user.pseudo }}</td>
-				<td>{{ user.firstname }} {{ user.lastname|upper }}</td>
-			</tr>
-			{% endfor %}
-			{% for j in (0..4 - trip.registeredUsers|length) %}
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+{% if trip.state.id == 6 %}
+<h3 class="cancel">Sortie annulée</h3>
+<div class="row">
+    <div>Motif :</div>
+    <div>{{ trip.cancelReason }}</div>
+</div>
+{% else %}
+        <h3>Liste des participants inscrits :</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in trip.registeredUsers %}
+                <tr>
+                    <td>{{ user.pseudo }}</td>
+                    <td>{{ user.firstname }} {{ user.lastname|upper }}</td>
+                </tr>
+                {% endfor %}
+                {% if trip.registeredUsers|length < 5 %}
+                    {% for j in (0..4 - trip.registeredUsers|length) %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+{% endif %}
 </section>
 {% endblock %}

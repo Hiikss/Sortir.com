@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Profil{% endblock %}
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+{% block body %}
+<section>
+    {% if not profilForm.vars.valid %}
+        <div class="invalid">
+            {% if form_errors(profilForm.email) %}
+                <div>L'email est incorrect ou existe déjà</div>
+            {% endif %}
+            {% if form_errors(profilForm.firstname) %}
+                <div>Le prénom est incorrect</div>
+            {% endif %}
+            {% if form_errors(profilForm.lastname) %}
+                <div>Le nom est incorrect</div>
+            {% endif %}
+            {% if form_errors(profilForm.pseudo) %}
+                <div>Ce pseudo existe déjà</div>
+            {% endif %}
+            {% if form_errors(profilForm.telephone) %}
+                <div>Le téléphone est incorrect</div>
+            {% endif %}
+            {% if form_errors(profilForm.campus) %}
+                <div>Le campus est incorrect</div>
+            {% endif %}
+            {% if form_errors(profilForm.password.first) %}
+                <div>Les mots de passe ne correspondent pas</div>
+            {% endif %}
+            {% if form_errors(profilForm.oldPassword) %}
+                <div>Veuillez saisir votre mot de passe actuel</div>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="column-2-form-box">
+        <div class="form">
+            <h2>Mon Profil</h2>
+            {{ form_start(profilForm) }}
+            <div class="row">
+                {% if form_errors(profilForm.email) %}
+                    <div class="inputbox invalid-field">
+                {% else %}
+                    <div class="inputbox">
+                {% endif %}
+                    {{ form_widget(profilForm.email) }}
+                    {{ form_label(profilForm.email) }}
+                </div>
+            </div>
+            <div class="row">
+                {% if form_errors(profilForm.firstname) %}
+                    <div class="inputbox invalid-field">
+                {% else %}
+                    <div class="inputbox">
+                {% endif %}
+                    {{ form_widget(profilForm.firstname) }}
+                    {{ form_label(profilForm.firstname) }}
+                </div>
+                {% if form_errors(profilForm.lastname) %}
+                    <div class="inputbox invalid-field">
+                {% else %}
+                    <div class="inputbox">
+                {% endif %}
+                    {{ form_widget(profilForm.lastname) }}
+                    {{ form_label(profilForm.lastname) }}
+                </div>
+            </div>
+            <div class="row">
+                {% if form_errors(profilForm.pseudo) %}
+                    <div class="inputbox invalid-field">
+                {% else %}
+                    <div class="inputbox">
+                {% endif %}
+                    {{ form_widget(profilForm.pseudo) }}
+                    {{ form_label(profilForm.pseudo) }}
+                </div>
+                {% if form_errors(profilForm.telephone) %}
+                    <div class="inputbox invalid-field">
+                {% else %}
+                    <div class="inputbox">
+                {% endif %}
+                    {{ form_widget(profilForm.telephone) }}
+                    {{ form_label(profilForm.telephone) }}
+                </div>
+            </div>
+            <div class="row">
+                {% if form_errors(profilForm.password.first) %}
+                    <div class="inputbox invalid-field">
+                {% else %}
+                    <div class="inputbox">
+                {% endif %}
+                    {{ form_widget(profilForm.password.first) }}
+                    {{ form_label(profilForm.password.first) }}
+                </div>
+                {% if form_errors(profilForm.password.first) %}
+                    <div class="inputbox invalid-field">
+                {% else %}
+                    <div class="inputbox">
+                {% endif %}
+                    {{ form_widget(profilForm.password.second) }}
+                    {{ form_label(profilForm.password.second) }}
+                </div>
+            </div>
+            <div class="row">
+                {% if form_errors(profilForm.campus) %}
+                    <div class="special-field">
+                {% else %}
+                    <div class="special-field">
+                {% endif %}
+                    {{ form_label(profilForm.campus) }}
+                    {{ form_widget(profilForm.campus) }}
+                </div>
+                {% if form_errors(profilForm.oldPassword) %}
+                    <div class="inputbox invalid-field">
+                {% else %}
+                    <div class="inputbox">
+                {% endif %}
+                    {{ form_widget(profilForm.oldPassword) }}
+                    {{ form_label(profilForm.oldPassword) }}
+                </div>
+            </div>
+            <div class="row-button">
+                <button type="submit" class="btn">Enregistrer</button>
+                <a href="{{ path('app_main') }}"><button class="btn">Annuler</button></a>
+            </div>
+            {{ form_end(profilForm) }}
+        </div>
+    </div>
+</section>
+{% endblock %}
