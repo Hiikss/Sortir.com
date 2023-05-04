@@ -1,0 +1,23 @@
+.profil{
+    display: block;
+    border-radius: 4px;
+    padding-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    color: #709775;
+}
+
+.key{
+    margin-bottom: 5px;
+}
+
+.btn{
+    display: inline-block;
+}
+
+.value{
+    padding-bottom: 20px;
+}

@@ -1,0 +1,69 @@
+.profil{
+    padding-top: 20px;
+    padding-bottom: 40px;
+    width: 25%;
+    background-color: var(--color2);
+    border-radius: 20px;
+    margin-top: 50px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profil .child {
+    width: 250px;
+}
+
+.row {
+ display: flex;
+    justify-content: space-between;
+}
+.row .key {
+    font-weight: bold;
+}
+
+.h1 {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.key{
+    margin-bottom: 5px;
+}
+
+
+.value{
+    padding-bottom: 30px;
+}
+
+.a {
+    color: white;
+    text-decoration: none;
+}
+
+.btn {
+    width: 100%;
+    max-width: 310px;
+    height: 40px;
+    background-color: var(--color4);
+    color: white;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: #8fb996;
+}

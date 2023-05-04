@@ -87,7 +87,7 @@
 					X
 					{% endif %}
 				</td>
-				<td class="mobile-hide">{{ trip.organizer.firstname }}
+				<td class="mobile-hide"><a href="{{ path('profil_show', {'id': trip.organizer.id}) }}">{{ trip.organizer.firstname }}
 					{{ trip.organizer.lastname|first }}.</td>
 				<td class="mobile-hide">
 					{% if app.user == trip.organizer and trip.state.id == 1 %}
