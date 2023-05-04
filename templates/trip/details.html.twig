@@ -76,12 +76,14 @@
 				<td>{{ user.firstname }} {{ user.lastname|upper }}</td>
 			</tr>
 			{% endfor %}
-			{% for j in (0..4 - trip.registeredUsers|length) %}
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-			{% endfor %}
+            {% if trip.registeredUsers|length < 5 %}
+                {% for j in (0..4 - trip.registeredUsers|length) %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            {% endif %}
 		</tbody>
 	</table>
 </section>
