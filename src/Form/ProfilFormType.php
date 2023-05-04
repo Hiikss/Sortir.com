@@ -93,7 +93,7 @@ class ProfilFormType extends AbstractType
                 ])
             ->add('oldPassword', type: PasswordType::class, options: [
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'label' => 'Ancien mot de passe *',
                 'attr' => [
                     'autocomplete' => 'old-password',
