@@ -55,6 +55,7 @@ class TripRepository extends ServiceEntityRepository
 
         $qb->leftJoin('t.registeredUsers', 'registered')
             ->addSelect('registered');
+
             
         if($filters['searchzone']) {
             $qb->andWhere('t.name like :searchzone')
