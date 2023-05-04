@@ -74,7 +74,7 @@ class TripController extends AbstractController
              'organizerTrips' => true, 'registeredTrips' => true, 'notRegisteredTrips' => true, 'pastTrips' => false]);
         }
 
-        return $this->render('main/index.html.twig', [
+        return $this->render('trip/index.html.twig', [
             'homeForm' => $homeForm->createView(),
             'trips' => $trips
         ]);
