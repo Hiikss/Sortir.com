@@ -123,7 +123,7 @@ class TripController extends AbstractController
         $states = $stateRepository->findAll();
 
         if($trip && ($this->getUser()==$trip->getOrganizer() || $this->isGranted('ROLE_ADMIN')) && ($trip->getState()==$states[1] || $trip->getState()==$states[2])
-            && $trip->getStartDateTime()>new DateTime('now') /*&& !is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "mobile"))*/) {
+            && $trip->getStartDateTime()>new DateTime('now')) {
 
             $tripForm = $this->createFormBuilder()
             ->add('reason', TextareaType::class, [
@@ -234,7 +234,7 @@ class TripController extends AbstractController
     }
 
     #[Route('/trip/edit/{id}', name: 'trip_edit')]
-    public function edit(int $id, TripRepository $tripRepository, StateRepository $stateRepository, Request $request): Response {
+    public function edit(int $id, TripRepository $tripRepository, StateRepository $stateRepository, Request $request, EntityManagerInterface $em): Response {
         
         $trip = $tripRepository->find($id);
 
@@ -248,13 +248,20 @@ class TripController extends AbstractController
             $tripForm->handleRequest($request);
 
             if ($tripForm->isSubmitted() && $tripForm->isValid()) {
-                if ($tripForm->get('save')->isClicked()) {
-                    //$trip->setState($states[0]);
-                } else if ($tripForm->get('publish')->isClicked()) {
-                    //$trip->setState($states[1]);
-                } else if($tripForm->get('delete')->isClicked()) {
+                if ($tripForm->get('save')->isClicked() || $tripForm->get('publish')->isClicked()) {
+                    $place = $tripForm->get('place')->getData();
+
+                    if($tripForm->get('publish')->isClicked()) {
+                        $trip->setState($states[1]);
+                    }
+                    $em->persist($trip);
+                    $em->persist($place);
+                    $em->flush();
+                } 
+                else if($tripForm->get('delete')->isClicked()) {
                     $tripRepository->remove($trip, true);
                 }
+
                 return $this->redirectToRoute('app_main');
             }
             
