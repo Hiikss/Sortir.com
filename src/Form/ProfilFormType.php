@@ -96,6 +96,7 @@ class ProfilFormType extends AbstractType
                 'allow_delete' => false,
                 'download_uri' => false,
                 'image_uri' => false,
+                'required' => false,
             ])
             ->add('oldPassword', type: PasswordType::class, options: [
                 'mapped' => false,
