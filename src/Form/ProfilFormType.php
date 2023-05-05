@@ -18,6 +18,7 @@ use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProfilFormType extends AbstractType
 {
@@ -91,6 +92,9 @@ class ProfilFormType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'name',
                 ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Choisir une image de profil',
+            ])
             ->add('oldPassword', type: PasswordType::class, options: [
                 'mapped' => false,
                 'required' => false,

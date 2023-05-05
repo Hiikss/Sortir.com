@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="{{ asset('css/modifier_profil.css') }}">
 {% endblock %}
 {% block body %}
+    <div class="avatar">
+        <img style="max-width: 100%" src="{{ vich_uploader_asset(user) }}">
+    </div>
     <section>
         {% if not profilForm.vars.valid %}
             <div class="invalid">
@@ -48,6 +51,14 @@
                             {{ form_widget(profilForm.email) }}
                             {{ form_label(profilForm.email) }}
                         </div>
+                        {% if form_errors(profilForm.pseudo) %}
+                        <div class="inputbox invalid-field">
+                            {% else %}
+                            <div class="inputbox">
+                                {% endif %}
+                                {{ form_widget(profilForm.pseudo) }}
+                                {{ form_label(profilForm.pseudo) }}
+                            </div>
                     </div>
                     <div class="row">
                         {% if form_errors(profilForm.firstname) %}
@@ -68,13 +79,13 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {% if form_errors(profilForm.pseudo) %}
+                                {% if form_errors(profilForm.oldPassword) %}
                                 <div class="inputbox invalid-field">
                                     {% else %}
                                     <div class="inputbox">
                                         {% endif %}
-                                        {{ form_widget(profilForm.pseudo) }}
-                                        {{ form_label(profilForm.pseudo) }}
+                                        {{ form_widget(profilForm.oldPassword) }}
+                                        {{ form_label(profilForm.oldPassword) }}
                                     </div>
                                     {% if form_errors(profilForm.telephone) %}
                                     <div class="inputbox invalid-field">
@@ -112,13 +123,13 @@
                                                         {{ form_label(profilForm.campus) }}
                                                         {{ form_widget(profilForm.campus) }}
                                                     </div>
-                                                    {% if form_errors(profilForm.oldPassword) %}
-                                                    <div class="inputbox invalid-field">
+                                                    {% if form_errors(profilForm.imageFile) %}
+                                                    <div class="">
                                                         {% else %}
-                                                        <div class="inputbox">
+                                                        <div class="">
                                                             {% endif %}
-                                                            {{ form_widget(profilForm.oldPassword) }}
-                                                            {{ form_label(profilForm.oldPassword) }}
+                                                            {{ form_label(profilForm.imageFile) }}
+                                                            {{ form_widget(profilForm.imageFile) }}
                                                         </div>
                                                     </div>
                                                     <div class="row-button">
