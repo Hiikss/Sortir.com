@@ -88,46 +88,48 @@
 					{% endif %}
 				</td>
 				<td class="mobile-hide"><a href="{{ path('profil_show', {'id': trip.organizer.id}) }}">{{ trip.organizer.firstname }}
-					{{ trip.organizer.lastname|first }}.</td>
+					{{ trip.organizer.lastname|first }}.</a></td>
 				<td class="mobile-hide">
-					{% if app.user == trip.organizer and trip.state.id == 1 %}
-						<a href="">Modifier</a>
+					{% if app.user == trip.organizer and trip.state.label == 'En création' %}
+						<a href="{{ path('trip_edit', {'id': trip.id}) }}">Modifier</a>
 					{% else %}
 						<a href="{{ path('trip_details', {'id': trip.id}) }}">Afficher</a>
 					{% endif %}
-					{% if trip.state.id == 3 and (app.user in trip.registeredUsers or app.user == trip.organizer) or trip.state.id == 2 or trip.state.id == 1 and app.user == trip.organizer %}
+					{% if trip.state.label == 'Fermé' and (app.user in trip.registeredUsers or app.user == trip.organizer) or trip.state.label == 'Ouvert' or trip.state.label == 'En création' and app.user == trip.organizer %}
 						<span> - </span>
-						{% if trip.state.id == 3 and app.user in trip.registeredUsers or trip.state.id == 2 and app.user in trip.registeredUsers %}
+						{% if trip.state.label == 'Fermé' and app.user in trip.registeredUsers or trip.state.label == 'Ouvert' and app.user in trip.registeredUsers %}
 							<a href="{{ path('trip_unregister', {'id': trip.id}) }}">Se désister</a>
-						{% elseif trip.state.id == 2 and app.user != trip.organizer and app.user not in trip.registeredUsers %}
+						{% elseif trip.state.label == 'Ouvert' and app.user != trip.organizer and app.user not in trip.registeredUsers %}
 							<a href="{{ path('trip_register', {'id': trip.id}) }}">S'inscrire</a>
-						{% elseif (trip.state.id == 2 or trip.state.id == 3) and app.user == trip.organizer %}
-							<a href="{{ path('trip_cancel', {'id': trip.id}) }}">Annuler</a>
-						{% elseif trip.state.id == 1 and app.user == trip.organizer %}
-							<a href="">Publier</a>
+						{% elseif trip.state.label == 'En création' and app.user == trip.organizer %}
+							<a href="{{ path('trip_publish', {'id': trip.id}) }}">Publier</a>
 						{% endif %}
 					{% endif %}
-					{% if 'ROLE_ADMIN' in app.user.roles and app.user != trip.organizer %}
-						<span> - </span>
+					{% if (trip.state.label == 'Ouvert' or trip.state.label == 'Fermé') and app.user == trip.organizer or 'ROLE_ADMIN' in app.user.roles and app.user != trip.organizer and (trip.state.label == 'Ouvert' or trip.state.label == 'Fermé') %}
+						{% if 'ROLE_ADMIN' in app.user.roles and app.user != trip.organizer %}
+							<span> - </span>
+						{% endif %}
 						<a href="{{ path('trip_cancel', {'id': trip.id}) }}">Annuler</a>
 					{% endif %}
 				</td>
 				<td class="mobile-show">{{ trip.place.city.name|upper }}</td>
 			</tr>
 			{% endfor %}
-			{% for j in (0..7 - trips|length) %}
-			<tr>
-				<td></td>
-				<td></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-hide"></td>
-				<td class="mobile-show"></td>
-			</tr>
-			{% endfor %}
+			{% if trips|length < 8 %}
+				{% for j in (0..7 - trips|length) %}
+				<tr>
+					<td></td>
+					<td></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-hide"></td>
+					<td class="mobile-show"></td>
+				</tr>
+				{% endfor %}
+			{% endif %}
 		</tbody>
 	</table>
 </section>

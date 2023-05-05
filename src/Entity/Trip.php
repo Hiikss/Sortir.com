@@ -21,14 +21,14 @@ class Trip
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\GreaterThanOrEqual('today')]
+    #[Assert\GreaterThanOrEqual('today +1 day')]
     private ?\DateTimeInterface $startDateTime = null;
 
     #[ORM\Column]
     private ?int $duration = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\GreaterThanOrEqual('today')]
+    #[Assert\GreaterThanOrEqual('today +1 day')]
     #[Assert\LessThanOrEqual(propertyPath: 'startDateTime')]
     private ?\DateTimeInterface $limitEntryDate = null;
 
@@ -43,11 +43,11 @@ class Trip
     private ?State $state = null;
 
     #[ORM\ManyToOne(inversedBy: 'organizedTrips')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private ?User $organizer = null;
 
     #[ORM\ManyToOne(inversedBy: 'trips')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private ?Place $place = null;
 
     #[ORM\ManyToOne(inversedBy: 'trips')]

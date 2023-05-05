@@ -3,7 +3,7 @@
 {% block title %}Connexion{% endblock %}
 
 {% block extrastyles %}
-    <link rel="stylesheet" href="{{ asset('css/authForm.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 {% endblock %}
 {% block body %}
 <section>
@@ -35,10 +35,11 @@
                 </div>
                 <a href="{{ path("app_forgot_password_request") }}">Mot de passe oublié</a>
             </div>
-
-            <button class="btn" type="submit">
-                Connexion
-            </button>
+            <div class="row-button">
+                <button class="btn" type="submit">
+                    Connexion
+                </button>
+            </div>
         </form>
     </div>
 </section>

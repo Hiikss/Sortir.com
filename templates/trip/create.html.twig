@@ -1,17 +1,173 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create a trip{% endblock %}
+{% block title %}Créer une sortie{% endblock %}
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
 {% block body %}
-    <div>
-        {{ form_start(TripForm) }}
+    <section>
+        {% if not tripForm.vars.valid %}
+            <div class="invalid">
+                {% if form_errors(tripForm.name) %}
+                    <div>Le nom de la sortie est incorrect</div>
+                {% endif %}
+                {% if form_errors(tripForm.campus) %}
+                    <div>Le campus est incorrect</div>
+                {% endif %}
+                {% if form_errors(tripForm.startDateTime) %}
+                    <div>La date de la sortie est incorrecte (elle doit être demain minimum)</div>
+                {% endif %}
+                {% if form_errors(tripForm.place.city) %}
+                    <div>La ville est incorrecte</div>
+                {% endif %}
+                {% if form_errors(tripForm.limitEntryDate) %}
+                    <div>La date limite est incorrecte (elle doit être demain minimum et être inférieure à la date de sortie)</div>
+                {% endif %}
+                {% if form_errors(tripForm.place.name) %}
+                    <div>Le lieu est incorrect</div>
+                {% endif %}
+                {% if form_errors(tripForm.maxRegistrationsNb) %}
+                    <div>Le nombre de places est incorrect</div>
+                {% endif %}
+                {% if form_errors(tripForm.place.street) %}
+                    <div>La rue est incorrecte</div>
+                {% endif %}
+                {% if form_errors(tripForm.duration) %}
+                    <div>La durée est incorrecte</div>
+                {% endif %}
+                {% if form_errors(tripForm.place.latitude) %}
+                    <div>La latitude est incorrecte</div>
+                {% endif %}
+                {% if form_errors(tripForm.place.tripInfos) %}
+                    <div>La description est incorrecte</div>
+                {% endif %}
+                {% if form_errors(tripForm.place.longitude) %}
+                    <div>La latitude est incorrecte</div>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="column-2-form-box">
+            <div class="form">
+                <h2>Créer une sortie</h2>
+                {{ form_start(tripForm) }}
 
-        {{ form_widget(TripForm) }}
-
-        <button type="submit">Enregistrer</button>
-        <button type="submit">Publier la sortie</button>
-        <button type="submit">Annuler</button>
-
-
-        {{ form_end(TripForm)}}
-    </div>
+                <div class="row">
+                    {% if form_errors(tripForm.name) %}
+                    <div class="inputbox invalid-field">
+                        {% else %}
+                        <div class="inputbox">
+                            {% endif %}
+                            {{ form_widget(tripForm.name) }}
+                            {{ form_label(tripForm.name) }}
+                        </div>
+                        {% if form_errors(tripForm.campus) %}
+                        <div class="special-field invalid-field">
+                            {% else %}
+                            <div class="special-field">
+                                {% endif %}
+                                {{ form_label(tripForm.campus) }}
+                                {{ form_widget(tripForm.campus) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% if form_errors(tripForm.startDateTime) %}
+                            <div class="inputbox invalid-field">
+                                {% else %}
+                                <div class="inputbox">
+                                    {% endif %}
+                                    {{ form_widget(tripForm.startDateTime) }}
+                                    {{ form_label(tripForm.startDateTime) }}
+                                </div>
+                                {% if form_errors(tripForm.place.city) %}
+                                <div class="special-field invalid-field">
+                                    {% else %}
+                                    <div class="special-field">
+                                        {% endif %}
+                                        {{ form_label(tripForm.place.city) }}
+                                        {{ form_widget(tripForm.place.city) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    {% if form_errors(tripForm.limitEntryDate) %}
+                                    <div class="inputbox invalid-field">
+                                        {% else %}
+                                        <div class="inputbox">
+                                            {% endif %}
+                                            {{ form_widget(tripForm.limitEntryDate) }}
+                                            {{ form_label(tripForm.limitEntryDate) }}
+                                        </div>
+                                        {% if form_errors(tripForm.place.name) %}
+                                        <div class="inputbox invalid-field">
+                                            {% else %}
+                                            <div class="inputbox">
+                                                {% endif %}
+                                                {{ form_widget(tripForm.place.name) }}
+                                                {{ form_label(tripForm.place.name) }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            {% if form_errors(tripForm.maxRegistrationsNb) %}
+                                            <div class="inputbox invalid-field">
+                                                {% else %}
+                                                <div class="inputbox">
+                                                    {% endif %}
+                                                    {{ form_widget(tripForm.maxRegistrationsNb) }}
+                                                    {{ form_label(tripForm.maxRegistrationsNb) }}
+                                                </div>
+                                                {% if form_errors(tripForm.place.street) %}
+                                                <div class="inputbox invalid-field">
+                                                    {% else %}
+                                                    <div class="inputbox">
+                                                        {% endif %}
+                                                        {{ form_widget(tripForm.place.street) }}
+                                                        {{ form_label(tripForm.place.street) }}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    {% if form_errors(tripForm.duration) %}
+                                                    <div class="inputbox invalid-field">
+                                                        {% else %}
+                                                        <div class="inputbox">
+                                                            {% endif %}
+                                                            {{ form_widget(tripForm.duration) }}
+                                                            {{ form_label(tripForm.duration) }}
+                                                        </div>
+                                                        {% if form_errors(tripForm.place.latitude) %}
+                                                        <div class="inputbox invalid-field">
+                                                            {% else %}
+                                                            <div class="inputbox">
+                                                                {% endif %}
+                                                                {{ form_widget(tripForm.place.latitude) }}
+                                                                {{ form_label(tripForm.place.latitude) }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            {% if form_errors(tripForm.tripInfos) %}
+                                                            <div class="inputbox invalid-field">
+                                                                {% else %}
+                                                                <div class="inputbox">
+                                                                    {% endif %}
+                                                                    {{ form_widget(tripForm.tripInfos) }}
+                                                                    {{ form_label(tripForm.tripInfos) }}
+                                                                </div>
+                                                                {% if form_errors(tripForm.place.longitude) %}
+                                                                <div class="inputbox invalid-field">
+                                                                    {% else %}
+                                                                    <div class="inputbox">
+                                                                        {% endif %}
+                                                                        {{ form_widget(tripForm.place.longitude) }}
+                                                                        {{ form_label(tripForm.place.longitude) }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row-button">
+                                                                    {{ form_widget(tripForm.save) }}
+                                                                    {{ form_widget(tripForm.publish) }}
+                                                                </div>
+                                                                <div class="row-button line-two">
+                                                                    <a class="cancel" href="{{ path('app_main') }}">Annuler</a>
+                                                                </div>
+                                                                {{ form_end(tripForm) }}
+                                                            </div>
+                                                        </div>
+    </section>
 {% endblock %}

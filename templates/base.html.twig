@@ -21,12 +21,23 @@
                 {% if(app.user) %}
                     <nav>
                         {% if is_granted("ROLE_ADMIN") %}
-                            <a href="#" title="Gestion des villes">Villes</a>
-                            <a href="#" title="Gestion des campus">Campus</a>
+                            <div class="dropdown">
+                                <div class="nav-item admin">Admin</div>
+                                <div class="dropdown-content">
+                                    <div></div>
+                                    <a href="{{ path('admin_user_list') }}" title="Gestion des utilisateurs">Utilisateurs</a>
+                                    <a href="{{ path('admin_city_list') }}" title="Gestion des villes">Villes</a>
+                                    <a href="{{ path('admin_campus_list') }}" title="Gestion des campus">Campus</a>
+                                </div>
+                            </div>
                         {% endif %}
-                        <a href="{{ path('app_main') }}" title="Retour à l'accueil">Accueil</a>
-                        <a href="{{ path('app_profil') }}" title="Voir mon profil">Mon profil</a>
-                        <a href="{{ path('app_logout') }}" title="Déconnexion">Se déconnecter</a>
+                        <a class="nav-item" href="{{ path('app_main') }}" title="Retour à l'accueil">Accueil</a>
+
+                        <a class="nav-item" href="{{ path('app_profil') }}" title="Voir mon profil">Profil</a>
+
+                        <a class="nav-item" href="{{ path('place_list') }}" title="Voir les lieux">Lieux</a>
+
+                        <a class="nav-item" href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
                     </nav>
                 {% endif %}
             </div>

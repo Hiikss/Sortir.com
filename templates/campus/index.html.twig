@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion utilisateurs{% endblock %}
+{% block title %}Gestion campus{% endblock %}
 
 {% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/table.css') }}"> {% endblock %}
 
 {% block body %}
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<h2>Gérer les utilisateurs</h2>
+<h2>Gérer les campus</h2>
 {% for message in app.flashes('success') %}
     <div class="flash">
         {{ message }}
@@ -15,7 +15,7 @@
 {% endfor %}
 <section>
     <div id="filters">
-        <h3>Filtrer les utilisateurs</h3>
+        <h3>Filtrer les campus</h3>
             {{ form_start(searchForm) }}
                 {{ form_label(searchForm.searchzone) }}
                 <div>
@@ -29,33 +29,30 @@
         <table>
             <thead>
                 <tr>
-                    <th class="mobile-hide">Utilisateur</th>
-                    <th>Email</th>
+                    <th>Campus</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for user in users %}
+                <tr>
+                    {{ form_start(campusForm) }}
+                    <td>{{ form_widget(campusForm.name) }}</td>
+                    <td><button class="add-btn">Ajouter</button></td>
+                    {{ form_end(campusForm) }}
+                </tr>
+                {% for c in campus %}
                     <tr>
-                        <td class="mobile-hide">{{ user.firstname }} {{ user.lastname|upper }}</td>
-                        <td>{{ user.email }}</td>
+                        <td>{{ c.name }}</td>
                         <td>
-                            <a href="{{ path('admin_user_active', {'id': user.id}) }}">
-                                {% if user.active %}
-                                    Désactiver
-                                {% else %}
-                                    Activer
-                                {% endif %}
-                            </a>
+                            <a href="{{ path('admin_campus_edit', {'id': c.id}) }}">Modifier</a>
                             <span> - </span>
-                            <a href="{{ path('admin_user_delete', {'id': user.id}) }}">Supprimer</a>
+                            <a href="{{ path('admin_campus_delete', {'id': c.id}) }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
-                {% if users|length < 7 %}
-                    {% for j in (0..6 - users|length) %}
+                {% if campus|length < 6 %}
+                    {% for j in (0..5 - campus|length) %}
                     <tr>
-                        <td class="mobile-hide"></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -63,14 +60,6 @@
                 {% endif %}
             </tbody>
         </table>
-    </div>
-    <div class="under-table">
-        <a id="add-user" href="{{ path('admin_register') }}">Ajouter un utilisateur</a>
-        {{ form_start(fileForm) }}
-            {{ form_label(fileForm.file) }}
-            {{ form_widget(fileForm.file) }}
-            <button>Importer des utilisateurs</button>
-        {{ form_end(fileForm) }}
     </div>
 </section>
 {% endblock %}

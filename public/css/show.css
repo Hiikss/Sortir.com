@@ -1,7 +1,7 @@
 .profil{
     padding-top: 20px;
     padding-bottom: 40px;
-    width: 25%;
+    width: 350px;
     background-color: var(--color2);
     border-radius: 20px;
     margin-top: 50px;
@@ -48,22 +48,20 @@
     text-decoration: none;
 }
 
-.btn {
+.btn a {
     width: 100%;
     max-width: 310px;
     height: 40px;
     background-color: var(--color4);
     color: white;
     border-radius: 40px;
-    border: none;
     outline: none;
-    cursor: pointer;
     font-weight: 600;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.btn:hover {
+.btn a:hover {
     background-color: #8fb996;
 }
