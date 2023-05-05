@@ -82,6 +82,14 @@ class AppFixtures extends Fixture
         $place4->setCity($city1);
         $manager->persist($place4);
 
+        $place5 = new Place();
+        $place5->setName('Piscine');
+        $place5->setStreet('28 rue de la piscine');
+        $place5->setLatitude(21.20);
+        $place5->setLongitude(17.58);
+        $place5->setCity($city2);
+        $manager->persist($place5);
+
         //USER
         $user1 = new User();
         $user1->setEmail('john.doe@test.com');
@@ -205,6 +213,46 @@ class AppFixtures extends Fixture
         $trip4->setTripInfos('Balade pour se dégourdir les jambes');
         $trip4->addRegisteredUser($user1);
         $manager->persist($trip4);
+
+        $trip5 = new Trip();
+        $trip5->setState($state1);
+        $trip5->setOrganizer($user1);
+        $trip5->setPlace($place1);
+        $trip5->setCampus($campus1);
+        $trip5->setName('Origami');
+        $trip5->setStartDateTime(new DateTime('now 10:30:00 +7 day'));
+        $trip5->setDuration(60);
+        $trip5->setLimitEntryDate(new DateTime('now +6 day'));
+        $trip5->setMaxRegistrationsNb(5);
+        $trip5->setTripInfos('Atelier origami');
+        $manager->persist($trip5);
+
+        $trip6 = new Trip();
+        $trip6->setState($state5);
+        $trip6->setOrganizer($user3);
+        $trip6->setPlace($place5);
+        $trip6->setCampus($campus1);
+        $trip6->setName('Natation');
+        $trip6->setStartDateTime(new DateTime('now 10:30:00 -2 day'));
+        $trip6->setDuration(60);
+        $trip6->setLimitEntryDate(new DateTime('now -4 day'));
+        $trip6->setMaxRegistrationsNb(10);
+        $trip6->setTripInfos('Séance de natation');
+        $trip6->addRegisteredUser($user1);
+        $manager->persist($trip6);
+
+        $trip6 = new Trip();
+        $trip6->setState($state2);
+        $trip6->setOrganizer($user1);
+        $trip6->setPlace($place1);
+        $trip6->setCampus($campus2);
+        $trip6->setName('Jardinage');
+        $trip6->setStartDateTime(new DateTime('now 14:00:00 +4 day'));
+        $trip6->setDuration(90);
+        $trip6->setLimitEntryDate(new DateTime('now +3 day'));
+        $trip6->setMaxRegistrationsNb(5);
+        $trip6->setTripInfos('Du jardinage');
+        $manager->persist($trip6);
 
         $manager->flush();
     }
