@@ -9,6 +9,7 @@ use App\Entity\State;
 use App\Entity\Trip;
 use App\Entity\User;
 use DateTime;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -92,6 +93,8 @@ class AppFixtures extends Fixture
         $user1->setTelephone("0102030405");
         $user1->setActive(true);
         $user1->setCampus($campus1);
+        $user1->setImageName('');
+        $user1->setUpdatedAt(new DateTimeImmutable('now'));
         $manager->persist($user1);
 
         $user2 = new User();
@@ -104,6 +107,8 @@ class AppFixtures extends Fixture
         $user2->setTelephone("0102030405");
         $user2->setActive(true);
         $user2->setCampus($campus1);
+        $user2->setImageName('');
+        $user2->setUpdatedAt(new DateTimeImmutable('now'));
         $manager->persist($user2);
 
         $user3 = new User();
@@ -116,6 +121,8 @@ class AppFixtures extends Fixture
         $user3->setTelephone("0102030405");
         $user3->setActive(true);
         $user3->setCampus($campus2);
+        $user3->setImageName('');
+        $user3->setUpdatedAt(new DateTimeImmutable('now'));
         $manager->persist($user3);
 
         //STATE

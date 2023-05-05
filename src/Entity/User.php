@@ -286,11 +286,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @param \Symfony\Component\HttpFoundation\File\File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-    public function setImageFile(?File $file = null): void
+    public function setImageFile(?File $imageFile = null): void
     {
-        $this->imageFile = $file;
+        $this->imageFile = $imageFile;
 
-        if (null !== $file) {
+        if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();

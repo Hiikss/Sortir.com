@@ -6,12 +6,9 @@
 {% endblock %}
 {% block body %}
 
-    <div class="avatar">
-        <img style="max-width: 100%" src="{{ vich_uploader_asset(user) }}">
-    </div>
-    <section>
-        {% if not profilForm.vars.valid %}
-            <div class="invalid">
+<div class="avatar">
+    <img src="{{ vich_uploader_asset(user, 'imageFile') }}">
+</div>
 
 <section>
     {% if not profilForm.vars.valid %}
@@ -131,10 +128,10 @@
             </div>
             <div class="row">
                 {% if form_errors(profilForm.imageFile) %}
-                <div class="">
+                    <div class="">
                 {% else %}
-                <div class="">
-                    {% endif %}
+                    <div class="">
+                {% endif %}
                     {{ form_label(profilForm.imageFile) }}
                     {{ form_widget(profilForm.imageFile) }}
                 </div>
