@@ -92,7 +92,7 @@ class TripRepository extends ServiceEntityRepository
         }
 
         if(!$filters['pastTrips']) {
-            $qb->andWhere('state != 5');
+            $qb->andWhere('state.label != \'Passé\'');
         }
 
         $qb->andWhere('date_diff(current_date(), t.startDateTime) <= 30');
