@@ -8,6 +8,9 @@
 
 {% block body %}
     <div class="parent">
+        <div class="avatar">
+            <img src="{{ asset('images/' ~ user.imageName) }}">
+        </div>
         <div class="profil">
             <div class="child">
                 <h1 class='h1'>{{ user.pseudo }}</h1>

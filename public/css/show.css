@@ -11,10 +11,16 @@
     align-items: center;
 }
 
+img {
+    border-radius: 50%;
+    width: 300px;
+}
+
 .parent{
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 50px;
 }
 
 .profil .child {

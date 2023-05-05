@@ -59,7 +59,6 @@ class ProfilFormType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => ' ',
-                    'autofocus' => true
                 ]
             ])
             ->add('password', type: RepeatedType::class, options: [
@@ -94,6 +93,9 @@ class ProfilFormType extends AbstractType
                 ])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Choisir une image de profil',
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => false,
             ])
             ->add('oldPassword', type: PasswordType::class, options: [
                 'mapped' => false,
@@ -101,7 +103,8 @@ class ProfilFormType extends AbstractType
                 'label' => 'Ancien mot de passe *',
                 'attr' => [
                     'autocomplete' => 'old-password',
-                    'placeholder' => ' ', 'minlength' => '6'
+                    'placeholder' => ' ', 'minlength' => '6',
+                    'autofocus' => true
                 ],
                 'constraints' => [
                     new Length([

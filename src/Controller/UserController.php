@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -47,6 +48,8 @@ class UserController extends AbstractController
                 $user->setTelephone($row['telephone']);
                 $user->setActive($row['active']);
                 $user->setCampus($campusRespository->findOneBy(['name' => $row['campus_name']]));
+                $user->setImageName('no-image.jpg');
+                $user->setUpdatedAt(new DateTimeImmutable('now'));
 
                 $em->persist($user);
                 $em->flush();

@@ -12,6 +12,23 @@ section {
     margin-top: 16px;
 }
 
+.body {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;   
+}
+
+input[type=file] {
+    max-width: 330px;
+}
+
+img {
+    border-radius: 50%;
+    width: 300px;
+    margin-top: 30px;
+}
+
 .invalid {
     color: crimson;
     text-align: center;
