@@ -17,7 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[UniqueEntity(fields: ['pseudo'], message: 'There is already an account with this pseudo')]
 #[Vich\Uploadable]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -328,4 +328,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function serialize() {
+
+        return serialize(array(
+            $this->id,
+            $this->firstname,
+            $this->lastname,
+            $this->password,
+            $this->pseudo,
+            $this->telephone,
+            $this->email,
+            $this->campus,
+            $this->roles,
+            $this->active,
+            $this->organizedTrips,
+            $this->registeredTrips,
+            $this->updatedAt,
+        ));
+        
+    }
+        
+        public function unserialize($serialized) {
+        
+        list (
+            $this->id,
+            $this->firstname,
+            $this->lastname,
+            $this->password,
+            $this->pseudo,
+            $this->telephone,
+            $this->email,
+            $this->campus,
+            $this->roles,
+            $this->active,
+            $this->organizedTrips,
+            $this->registeredTrips,
+            $this->updatedAt,
+        ) = unserialize($serialized);
+    }
+    
 }
